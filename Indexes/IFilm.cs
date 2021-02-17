@@ -8,7 +8,7 @@ namespace OzonePrime.Indexes
     interface IFilm
     {
         //public image Thumbnail { get; set; }
-
+        public int Id { get; set; }
         public string Title { get; set; }
         public List<ICast> Cast { get; set; }
         public List<IGenre> Genres { get; set; }

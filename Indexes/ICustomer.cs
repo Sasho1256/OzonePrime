@@ -7,6 +7,7 @@ namespace OzonePrime.Indexes
 {
     interface ICustomer
     {
+        public int Id { get; set; }
         public string Username { get; set; }
         public string FistName { get; set; }
         public string LastName { get; set; }

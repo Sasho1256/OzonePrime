@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\legos\\Desktop\\OzonePrime\\OzonePrime.csproj": {}
+    "C:\\Users\\atmil\\OneDrive\\Documents\\1 Programming\\Projects\\myWork\\OzonePrime\\OzonePrime.csproj": {}
   },
   "projects": {
-    "C:\\Users\\legos\\Desktop\\OzonePrime\\OzonePrime.csproj": {
+    "C:\\Users\\atmil\\OneDrive\\Documents\\1 Programming\\Projects\\myWork\\OzonePrime\\OzonePrime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\legos\\Desktop\\OzonePrime\\OzonePrime.csproj",
+        "projectUniqueName": "C:\\Users\\atmil\\OneDrive\\Documents\\1 Programming\\Projects\\myWork\\OzonePrime\\OzonePrime.csproj",
         "projectName": "OzonePrime",
-        "projectPath": "C:\\Users\\legos\\Desktop\\OzonePrime\\OzonePrime.csproj",
-        "packagesPath": "C:\\Users\\legos\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\legos\\Desktop\\OzonePrime\\obj\\",
+        "projectPath": "C:\\Users\\atmil\\OneDrive\\Documents\\1 Programming\\Projects\\myWork\\OzonePrime\\OzonePrime.csproj",
+        "packagesPath": "C:\\Users\\atmil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\atmil\\OneDrive\\Documents\\1 Programming\\Projects\\myWork\\OzonePrime\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\legos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\atmil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
