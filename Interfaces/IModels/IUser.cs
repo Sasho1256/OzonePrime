@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OzonePrime.Indexes
+namespace OzonePrime.Interfaces.IModels
 {
-    interface ICustomer
+    interface IUser
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -13,12 +13,6 @@ namespace OzonePrime.Indexes
         public string LastName { get; set; }
         public string Password { get; set; }
         public List<IFilm> MyFilms { get; set; }
-
-        public void Register();
-        public void LogIn();
-        public void LogOut();
-        public void AddFilmToLibrary (IFilm film);
-        public void RemoveFilmFromLibrary (IFilm film);
-        
+        public List<IRole> Roles { get; set; }       
     }
 }
