@@ -10,7 +10,7 @@ namespace OzonePrime.Interfaces
     {
         public IUser LoggedUser { get; set; }
         public List<ICast> Cast { get; set; }
-        public List<IUser> Customers { get; set; }
+        public List<IUser> Users { get; set; }
         public List<IFilm> Films { get; set; }
         public List<IGenre> Genres { get; set; }
     }
