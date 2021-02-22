@@ -23,10 +23,6 @@ namespace OzonePrime.Controllers
             return View();
         }
 
-        public IActionResult FilmList()
-        {
-            return View();
-        }
         public IActionResult SignUp()
         {
             return View();

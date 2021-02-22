@@ -4,26 +4,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OzonePrime.Models;
+using OzonePrime.Services;
 
 namespace OzonePrime.Controllers
 {
     public class FilmController : Controller
     {
-        public IActionResult Index(Film film)
+        private FilmService filmService;
+
+        public FilmController(FilmService filmService)
         {
-            return View(film);
+            this.filmService = filmService;
+        }
+        public IActionResult GetAllFilms()
+        {
+            List<Film> films = this.filmService.GetAllFilms();
+            return View(films);
         }
 
-        [HttpPost]
-        public IActionResult IndexPost(DirectorDTO dto)
+        [HttpGet]
+        public IActionResult Create()
         {
-            Film film = new Film();
-
-            film.Title = "Film Title";
-            film.YearRelease = 2021;
-            film.Directors.AddRange(new List<string>() { $"{dto.FirstName} {dto.LastName}", "Director2" });
-
-            return RedirectToAction("Index", film);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Film film)
+        {
+            this.filmService.Create(film);
+            return RedirectToAction(nameof(GetAllFilms));
         }
     }
 }
