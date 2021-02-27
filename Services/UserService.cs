@@ -9,31 +9,14 @@ using System.Threading.Tasks;
 
 namespace OzonePrime.Services
 {
-    public class AdminService
+    public class UserService
     {
         private InMemoryDatabase database;
 
-        public AdminService(InMemoryDatabase database)
+        public UserService(InMemoryDatabase database)
         {
             this.database = database;
-        }
-
-        public void AddFilm(Film film)
-        {
-            database.Films.Add(film);
-        }
-
-        public void EditFilm(int id, Film film)
-        {
-            Film filmToEdit = database.Films.FirstOrDefault(x => x.Id == id);
-            filmToEdit = film;
-        }
-
-        public void RemoveFilm(int id)
-        {
-            Film filmToRemove = database.Films.FirstOrDefault(x => x.Id == id);
-            database.Films.Remove(filmToRemove);
-        }
+        }        
 
         public void EditUser(int id, User user)
         {
