@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\legos\\Source\\Repos\\OzonePrime\\OzonePrime.csproj",
+      "projectUniqueName": "C:\\Users\\legos\\Desktop\\OzonePrime\\OzonePrime.csproj",
       "projectName": "OzonePrime",
-      "projectPath": "C:\\Users\\legos\\Source\\Repos\\OzonePrime\\OzonePrime.csproj",
+      "projectPath": "C:\\Users\\legos\\Desktop\\OzonePrime\\OzonePrime.csproj",
       "packagesPath": "C:\\Users\\legos\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\legos\\Source\\Repos\\OzonePrime\\obj\\",
+      "outputPath": "C:\\Users\\legos\\Desktop\\OzonePrime\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

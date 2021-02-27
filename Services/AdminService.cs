@@ -1,4 +1,4 @@
-﻿/*using OzonePrime.Database;
+﻿using OzonePrime.Database;
 using OzonePrime.Interfaces.IControllers;
 using OzonePrime.Interfaces.IModels;
 using OzonePrime.Models;
@@ -47,4 +47,4 @@ namespace OzonePrime.Services
             database.Users.Remove(userToRemove);
         }        
     }
-}*/
+}
