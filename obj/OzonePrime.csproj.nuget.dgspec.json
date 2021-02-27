@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\legos\\Source\\Repos\\OzonePrime\\OzonePrime.csproj": {}
+    "C:\\Users\\legos\\source\\repos\\OzonePrime\\OzonePrime.csproj": {}
   },
   "projects": {
-    "C:\\Users\\legos\\Source\\Repos\\OzonePrime\\OzonePrime.csproj": {
+    "C:\\Users\\legos\\source\\repos\\OzonePrime\\OzonePrime.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\legos\\Source\\Repos\\OzonePrime\\OzonePrime.csproj",
+        "projectUniqueName": "C:\\Users\\legos\\source\\repos\\OzonePrime\\OzonePrime.csproj",
         "projectName": "OzonePrime",
-        "projectPath": "C:\\Users\\legos\\Source\\Repos\\OzonePrime\\OzonePrime.csproj",
+        "projectPath": "C:\\Users\\legos\\source\\repos\\OzonePrime\\OzonePrime.csproj",
         "packagesPath": "C:\\Users\\legos\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\legos\\Source\\Repos\\OzonePrime\\obj\\",
+        "outputPath": "C:\\Users\\legos\\source\\repos\\OzonePrime\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
