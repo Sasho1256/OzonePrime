@@ -9,16 +9,23 @@ namespace OzonePrime.Services
 {
     public class FilmService
     {
+        private InMemoryDatabase database;
+
+        public FilmService(InMemoryDatabase database)
+        {
+            this.database = database;
+        }
+
         public List<Film> GetAllFilms()
         {
-            return InMemoryDatabase.Films;
+            return database.Films;
         }
 
         internal void Create(Film film)
         {
-            film.Id = InMemoryDatabase.Count;
-            InMemoryDatabase.Count++;
-            InMemoryDatabase.Films.Add(film);
+            film.Id = database.Count;
+            database.Count++;
+            database.Films.Add(film);
         }
     }
 }
