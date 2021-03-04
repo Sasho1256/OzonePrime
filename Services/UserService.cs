@@ -11,16 +11,22 @@ namespace OzonePrime.Services
 {
     public class UserService
     {
-        private InMemoryDatabase database;
+        private ozoneprimeContext database;
 
-        public UserService(InMemoryDatabase database)
+        public UserService(ozoneprimeContext database)
         {
             this.database = database;
-        }        
+        }
+
+        public void Register() 
+        {
+            
+        }
 
         public void EditUser(int id, User user)
         {
             User userToEdit = database.Users.FirstOrDefault(x => x.Id == id);
+
             userToEdit = user;
         }        
 

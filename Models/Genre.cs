@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+#nullable disable
 
 namespace OzonePrime.Models
 {
-    public class Genre
+    public partial class Genre
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public List<Film> Films { get; private set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
     }
 }
