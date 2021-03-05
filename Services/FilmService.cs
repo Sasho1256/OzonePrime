@@ -26,6 +26,7 @@ namespace OzonePrime.Services
             //film.Id = database.Count;
             //database.Count++;
             database.Films.Add(film);
+            database.SaveChanges();
         }
 
         /*
