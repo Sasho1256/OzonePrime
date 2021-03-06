@@ -13,22 +13,15 @@ namespace OzonePrime.Services
 {
     public class UserService
     {
-        public ozoneprimeContext database;
+        private ozoneprimeContext database;
 
         public UserService(ozoneprimeContext database)
         {
             this.database = database;
         }
-
-        public void Register(string username, string password, string firstName, string lastName) 
+        
+        public void Register(User user) 
         {
-            User user = new User();
-
-            user.Username = username;
-            user.Password = password;
-            user.FirstName = firstName;
-            user.LastName = lastName;
-
             database.Users.Add(user);
             database.SaveChanges();
         }
@@ -51,3 +44,28 @@ namespace OzonePrime.Services
         //}        
     }
 }
+
+//@{
+//    ViewData["Title"] = "Register";
+//}
+//< h3 > @ViewData["Title"] </ h3 >
+//< form asp - controller = "UserController" asp - action = "Register" method = "post" enctype = "text/plain" >
+//               Username:< br >
+           
+//               < input type = "text" id = "uname" name = "User_name" >< br >
+//                    Password:< br >
+                
+//                    < input type = "password" id = "pwd" name = "Password" >< br >
+//                         First Name:< br >
+                     
+//                         < input type = "text" id = "fname" name = "First_name" >< br >
+//                              Last Name:< br >
+                          
+//                              < input type = "text" id = "lname" name = "Last_name" >< br >
+                               
+//                                   < p ></ p >
+                               
+//                                   < button > Create </ button >
+                               
+//                                   < input type = "submit" value = "Submit" />
+//                                  </ form >

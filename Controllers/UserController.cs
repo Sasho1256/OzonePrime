@@ -16,7 +16,7 @@ namespace OzonePrime.Controllers
         public UserController(UserService userService)
         {
             this.userService = userService;
-        }
+        }        
 
         [HttpGet]
         public IActionResult Register()
@@ -24,15 +24,10 @@ namespace OzonePrime.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(string username, string password, string firstName, string lastName)
+        public IActionResult Register(User user)
         {
-            this.userService.Register(username, password, firstName, lastName);
-            return RedirectToAction(nameof(GetAllFilms));
-        }
-
-        private object GetAllFilms()
-        {
-            return View(userService.database.Films.ToList());
+            this.userService.Register(user);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

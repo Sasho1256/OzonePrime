@@ -6,11 +6,19 @@
 <h1>Create</h1>
 
 <form asp-controller="Film" asp-action="Create" method="post">
-    <label>Name</label>
-    <input name="name"/>
-    
-    <label>Price</label>
-    <input type="number" name="price" />
+	<label>Name</label> <br>
+	<input name="name" /> <br>
 
-    <button>Create</button>
+	<label>Price</label> <br>
+	<input type="number" name="price" /> <br>
+
+	<label>Description</label> <br>
+	<input name="description" /> <br>
+
+	<label>Year of release</label> <br>
+	<input type="number" name="yearrelease" /> <br>
+
+	<br>
+
+	<button>Create</button>
 </form>
