@@ -26,46 +26,37 @@ namespace OzonePrime.Services
             database.SaveChanges();
         }
 
-        //public void LogIn()
-        //{
+        internal User UserProfile()
+        {
+            return database.Users.FirstOrDefault(x => x.IsLoggedIn == true);
+        }
 
-        //}
+        public void LogIn(User loggingUser)
+        {
+            foreach (var dbUser in database.Users)
+            {
+                dbUser.IsLoggedIn = false;
+                database.Users.Update(dbUser);
+
+                if (loggingUser.Username == dbUser.Username && loggingUser.Password == dbUser.Password)
+                {
+                    dbUser.IsLoggedIn = true;
+                    database.Users.Update(dbUser);
+                }
+            }
+            
+            database.SaveChanges();
+            return;
+            
+            throw new MissingMemberException("This user does not exist.");
+        }
 
         //public void EditUser(int id, User user)
         //{
-        //    User userToEdit = database.Users.FirstOrDefault(x => x.Id == id);
-
-        //    userToEdit = user;
         //}
 
         //public void RemoveCustomer(int id)
         //{
-                  
         //}        
     }
 }
-
-//@{
-//    ViewData["Title"] = "Register";
-//}
-//< h3 > @ViewData["Title"] </ h3 >
-//< form asp - controller = "UserController" asp - action = "Register" method = "post" enctype = "text/plain" >
-//               Username:< br >
-           
-//               < input type = "text" id = "uname" name = "User_name" >< br >
-//                    Password:< br >
-                
-//                    < input type = "password" id = "pwd" name = "Password" >< br >
-//                         First Name:< br >
-                     
-//                         < input type = "text" id = "fname" name = "First_name" >< br >
-//                              Last Name:< br >
-                          
-//                              < input type = "text" id = "lname" name = "Last_name" >< br >
-                               
-//                                   < p ></ p >
-                               
-//                                   < button > Create </ button >
-                               
-//                                   < input type = "submit" value = "Submit" />
-//                                  </ form >

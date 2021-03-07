@@ -1,0 +1,12 @@
+﻿@model User
+@{
+	ViewData["Title"] = "GetAllFilms";
+}
+
+<p>Username: @Model.Username</p>
+<p>Password: ********</p>
+<p>First name: @Model.FirstName</p>
+@if (Model.LastName != null)
+{
+	<p>Last name: @Model.LastName</p>
+}
