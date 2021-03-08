@@ -20,24 +20,62 @@ namespace OzonePrime.Services
             this.database = database;
         }
         
+        public User UserProfile()
+        {
+            bool aUserIsLogged = false;
+            foreach (var dbUser in database.Users)
+            {
+                if (dbUser.IsLoggedIn == true)
+                {
+                    aUserIsLogged = true;
+                }
+            }
+
+            if (aUserIsLogged == false)
+            {
+                throw new AccessViolationException("You must log in first!");
+            }
+
+            return database.Users.FirstOrDefault(x => x.IsLoggedIn == true);
+        }
+
         public void Register(User user) 
         {
+            foreach (var dbUser in database.Users)
+            {
+                if (dbUser.IsLoggedIn == true)
+                {
+                    throw new AccessViolationException("You are logged in, please logout and try again!");
+                }
+                if (dbUser.Username == user.Username)
+                {
+                    throw new DuplicateNameException("A user with that username already exists!");
+                }
+            }            
+
             database.Users.Add(user);
             database.SaveChanges();
         }
 
-        internal User UserProfile()
-        {
-            return database.Users.FirstOrDefault(x => x.IsLoggedIn == true);
-        }
 
         public void LogIn(User loggingUser)
         {
+            if (!database.Users.Any(x => x.Username == loggingUser.Username))
+            {
+                throw new MissingMemberException("Such profile doesn't exist.");
+            }
+            if (database.Users.Any(x => x.IsLoggedIn == true))
+            {
+                throw new AccessViolationException("You are logged in, please logout and try again!");
+            }
+
             foreach (var dbUser in database.Users)
             {
-                dbUser.IsLoggedIn = false;
-                database.Users.Update(dbUser);
-
+                if (loggingUser.Username == dbUser.Username && loggingUser.Password != dbUser.Password)
+                {
+                    throw new InvalidOperationException("Wrong password.");
+                }
+                
                 if (loggingUser.Username == dbUser.Username && loggingUser.Password == dbUser.Password)
                 {
                     dbUser.IsLoggedIn = true;
@@ -46,12 +84,21 @@ namespace OzonePrime.Services
             }
             
             database.SaveChanges();
-            return;
-            
-            throw new MissingMemberException("This user does not exist.");
         }
 
-        //public void EditUser(int id, User user)
+        public void LogOut()
+        {
+            foreach (var dbUser in database.Users)
+            {
+                dbUser.IsLoggedIn = false;
+                database.Users.Update(dbUser);
+            }
+
+            database.SaveChanges();
+        }
+
+
+        //public void EditUser(User user)
         //{
         //}
 

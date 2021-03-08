@@ -12,6 +12,7 @@ namespace OzonePrime.Controllers
     public class UserController : Controller
     {
         private UserService userService;
+        private string exMessage = "";
 
         public UserController(UserService userService)
         {
@@ -20,7 +21,18 @@ namespace OzonePrime.Controllers
 
         public IActionResult UserProfile()
         {
-            User user = this.userService.UserProfile();
+            User user = new User();
+            try
+            {
+                user = this.userService.UserProfile();
+            }
+            catch (AccessViolationException ex)
+            {
+                //return RedirectToAction("LogIn", "User");
+                TempData["ExHand"] = ex.Message;
+                return RedirectToAction("ExceptionHandling");
+            }
+
             return View(user);
         }
 
@@ -32,7 +44,22 @@ namespace OzonePrime.Controllers
         [HttpPost]
         public IActionResult Register(User user)
         {
-            this.userService.Register(user);
+            try
+            {
+                this.userService.Register(user);
+            }
+            catch (AccessViolationException ex)
+            {
+                //return RedirectToAction("UserProfile", "User");
+                string message = ex.Message;
+                return RedirectToAction("ExceptionHandling");
+            }
+            catch (DuplicateNameException ex)
+            {
+                //return RedirectToAction("Register", "User");
+                string message = ex.Message;
+                return RedirectToAction("ExceptionHandling");
+            }     
             return RedirectToAction("Index", "Home");
         }
 
@@ -48,11 +75,38 @@ namespace OzonePrime.Controllers
             {
                 this.userService.LogIn(user);
             }
-            catch (MissingMemberException)
+            catch (MissingMemberException ex)
             {
-                return RedirectToAction("LogIn", "User");
+                //return RedirectToAction("LogIn", "User");
+                string message = ex.Message;
+                return RedirectToAction("ExceptionHandling");
+            }
+            catch (AccessViolationException ex)
+            {
+                //return RedirectToAction("UserProfile", "User");
+                string message = ex.Message;
+                return RedirectToAction("ExceptionHandling");
+            }
+            catch (InvalidOperationException ex)
+            {
+                //return RedirectToAction("LogIn", "User");
+                string message = ex.Message;
+                return RedirectToAction("ExceptionHandling");
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult LogOut()
+        {
+            userService.LogOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult ExceptionHandling()
+        {
+            exMessage = TempData["ExHand"].ToString();
+            ExMessDTO exMess = new ExMessDTO(exMessage);
+            return View(exMess);
         }
     }
 }

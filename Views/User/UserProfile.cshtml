@@ -1,8 +1,10 @@
 ﻿@model User
 @{
-	ViewData["Title"] = "GetAllFilms";
+	ViewData["Title"] = "User Profile";
 }
 
+<h1 class="display-4">My profile</h1>
+<p><br></p>
 <p>Username: @Model.Username</p>
 <p>Password: ********</p>
 <p>First name: @Model.FirstName</p>
@@ -10,3 +12,5 @@
 {
 	<p>Last name: @Model.LastName</p>
 }
+
+<input type="button" value="Log out" onclick="location.href='@Url.Action("LogOut", "User")'" />

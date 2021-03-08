@@ -1,0 +1,10 @@
+﻿@using OzonePrime.Controllers
+@model ExMessDTO
+@{
+	ViewData["Title"] = "Error";
+}
+<div class="text-center">
+	<p>Problem: @Model.ExMess.ToString()</p>
+	<p><br><br><br></p>
+	<input type="button" value="Home page" onclick="location.href='@Url.Action("Index", "Home")'" />
+</div>
