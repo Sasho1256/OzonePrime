@@ -12,7 +12,6 @@ namespace OzonePrime.Controllers
     public class UserController : Controller
     {
         private UserService userService;
-        private string exMessage = "";
 
         public UserController(UserService userService)
         {
@@ -102,11 +101,22 @@ namespace OzonePrime.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult DeleteUser()
+        {
+            userService.DeleteUser();
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult ExceptionHandling()
         {
-            exMessage = TempData["ExHand"].ToString();
+            string exMessage = TempData["ExHand"].ToString();
             ExMessDTO exMess = new ExMessDTO(exMessage);
             return View(exMess);
+        }
+
+        public IActionResult AreYouSure()
+        {            
+            return View();
         }
     }
 }

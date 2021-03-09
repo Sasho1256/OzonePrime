@@ -102,8 +102,11 @@ namespace OzonePrime.Services
         //{
         //}
 
-        //public void RemoveCustomer(int id)
-        //{
-        //}        
+        public void DeleteUser()
+        {
+            User userToRemove = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
+            database.Users.Remove(userToRemove);
+            database.SaveChanges();
+        }
     }
 }

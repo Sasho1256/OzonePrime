@@ -13,4 +13,5 @@
 	<p>Last name: @Model.LastName</p>
 }
 
+<input type="button" style="background-color: indianred" value="Delete account" onclick="location.href='@Url.Action("AreYouSure", "User")'" />
 <input type="button" value="Log out" onclick="location.href='@Url.Action("LogOut", "User")'" />
