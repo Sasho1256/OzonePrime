@@ -51,13 +51,13 @@ namespace OzonePrime.Controllers
             catch (AccessViolationException ex)
             {
                 //return RedirectToAction("UserProfile", "User");
-                string message = ex.Message;
+                TempData["ExHand"] = ex.Message;
                 return RedirectToAction("ExceptionHandling");
             }
             catch (DuplicateNameException ex)
             {
                 //return RedirectToAction("Register", "User");
-                string message = ex.Message;
+                TempData["ExHand"] = ex.Message;
                 return RedirectToAction("ExceptionHandling");
             }     
             return RedirectToAction("Index", "Home");
@@ -78,19 +78,19 @@ namespace OzonePrime.Controllers
             catch (MissingMemberException ex)
             {
                 //return RedirectToAction("LogIn", "User");
-                string message = ex.Message;
+                TempData["ExHand"] = ex.Message;
                 return RedirectToAction("ExceptionHandling");
             }
             catch (AccessViolationException ex)
             {
                 //return RedirectToAction("UserProfile", "User");
-                string message = ex.Message;
+                TempData["ExHand"] = ex.Message;
                 return RedirectToAction("ExceptionHandling");
             }
             catch (InvalidOperationException ex)
             {
                 //return RedirectToAction("LogIn", "User");
-                string message = ex.Message;
+                TempData["ExHand"] = ex.Message;
                 return RedirectToAction("ExceptionHandling");
             }
             return RedirectToAction("Index", "Home");
