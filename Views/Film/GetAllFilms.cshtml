@@ -1,9 +1,15 @@
 ﻿@model List<Film>
 @{ 
-    ViewData["Title"] = "GetAllFilms";
+    ViewData["Title"] = "All Films";
 }
+
+<h1 class="display-4">All films</h1>
+<br>
+<ul>
 
 @for (int i = 0; i < Model.Count; i++)
 {
-    <p>@Model[i].Name - @Model[i].Price lv.</p>
+    <li>@Model[i].Name - @Model[i].Price lv.</li>
 }
+
+</ul>
