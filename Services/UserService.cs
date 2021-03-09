@@ -98,9 +98,37 @@ namespace OzonePrime.Services
         }
 
 
-        //public void EditUser(User user)
-        //{
-        //}
+        public void EditProfile(User updatedUser)
+        {
+            foreach (var dbUser in database.Users)
+            {                
+                if (dbUser.Username == updatedUser.Username)
+                {
+                    throw new DuplicateNameException("A user with that username already exists!");
+                }                
+            }
+
+            User user = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
+
+            if (!string.IsNullOrWhiteSpace(updatedUser.Username) || !string.IsNullOrEmpty(updatedUser.Username))
+            {
+                user.Username = updatedUser.Username;
+            }
+            if (!string.IsNullOrWhiteSpace(updatedUser.Password) || !string.IsNullOrEmpty(updatedUser.Password))
+            {
+                user.Password = updatedUser.Password;
+            }
+            if (!string.IsNullOrWhiteSpace(updatedUser.FirstName) || !string.IsNullOrEmpty(updatedUser.FirstName))
+            {
+                user.FirstName = updatedUser.FirstName;
+            }
+            if (!string.IsNullOrWhiteSpace(updatedUser.LastName) || !string.IsNullOrEmpty(updatedUser.LastName))
+            {
+                user.LastName = updatedUser.LastName;
+            }            
+
+            database.SaveChanges();
+        }
 
         public void DeleteUser()
         {

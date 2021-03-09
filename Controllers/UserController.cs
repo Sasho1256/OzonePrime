@@ -101,6 +101,27 @@ namespace OzonePrime.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public IActionResult EditProfile()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult EditProfile(User user)
+        {
+            try
+            {
+                this.userService.EditProfile(user);
+            }            
+            catch (DuplicateNameException ex)
+            {
+                //return RedirectToAction("Register", "User");
+                TempData["ExHand"] = ex.Message;
+                return RedirectToAction("ExceptionHandling");
+            }
+            return RedirectToAction("UserProfile");
+        }
+
         public IActionResult DeleteUser()
         {
             userService.DeleteUser();

@@ -13,5 +13,6 @@
 	<p>Last name: @Model.LastName</p>
 }
 
-<input type="button" style="background-color: indianred; color: white" value="Delete account" onclick="location.href='@Url.Action("AreYouSure", "User")'" />
+<input type="button" style="background-color: coral; color: white" value="Edit profile" onclick="location.href='@Url.Action("EditProfile", "User")'" />
+<input type="button" style="background-color: indianred; color: white" value="Delete profile" onclick="location.href='@Url.Action("AreYouSure", "User")'" /><br><br>
 <input type="button" style="background-color: deepskyblue; color: white" value="Log out" onclick="location.href='@Url.Action("LogOut", "User")'" />
