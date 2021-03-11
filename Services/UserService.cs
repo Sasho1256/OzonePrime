@@ -65,10 +65,6 @@ namespace OzonePrime.Services
             {
                 throw new ArgumentException("Invalid input for first name.");
             }
-            if (string.IsNullOrWhiteSpace(user.LastName) || string.IsNullOrEmpty(user.LastName))
-            {
-                throw new ArgumentException("Invalid input for last name.");
-            }
 
             database.Users.Add(user);
             database.SaveChanges();

@@ -2,20 +2,22 @@
     ViewData["Title"] = "Log In";
 }
 
-<h1 class="display-4">@ViewData["Title"]</h1>
+<div class="text-center">
+	<h1 class="display-4">@ViewData["Title"]</h1>
 
-<form asp-controller="User" asp-action="LogIn" method="post">
+	<form asp-controller="User" asp-action="LogIn" method="post">
 
-	<label for="uname">Username:</label> <br>
-	<input type="text" id="uname" name="username" required> <br>
-	
-	<label for="pwd">Password:</label> <br>
-	<input type="password" id="pwd" name="password" required> <br>
-	
-	<br>
-	
-	<button>
-		Log In
-	</button>
-		
-</form>
+		<label for="uname">Username:</label> <br>
+		<input type="text" id="uname" name="username" required> <br>
+
+		<label for="pwd">Password:</label> <br>
+		<input type="password" id="pwd" name="password" required> <br>
+
+		<br>
+
+		<button>
+			Log In
+		</button>
+
+	</form>
+</div>
