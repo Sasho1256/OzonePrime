@@ -58,7 +58,12 @@ namespace OzonePrime.Controllers
                 //return RedirectToAction("Register", "User");
                 TempData["ExHand"] = ex.Message;
                 return RedirectToAction("ExceptionHandling");
-            }     
+            }
+            catch (ArgumentException ex)
+            {
+                TempData["ExHand"] = ex.Message;
+                return RedirectToAction("ExceptionHandling");
+            }
             return RedirectToAction("Index", "Home");
         }
 

@@ -51,7 +51,24 @@ namespace OzonePrime.Services
                 {
                     throw new DuplicateNameException("A user with that username already exists!");
                 }
-            }            
+            }
+
+            if (string.IsNullOrWhiteSpace(user.Username) || string.IsNullOrEmpty(user.Username))
+            {
+                throw new ArgumentException("Invalid input for username.");
+            }
+            if (string.IsNullOrWhiteSpace(user.Password) || string.IsNullOrEmpty(user.Password))
+            {
+                throw new ArgumentException("Invalid input for password.");
+            }
+            if (string.IsNullOrWhiteSpace(user.FirstName) || string.IsNullOrEmpty(user.FirstName))
+            {
+                throw new ArgumentException("Invalid input for first name.");
+            }
+            if (string.IsNullOrWhiteSpace(user.LastName) || string.IsNullOrEmpty(user.LastName))
+            {
+                throw new ArgumentException("Invalid input for last name.");
+            }
 
             database.Users.Add(user);
             database.SaveChanges();
