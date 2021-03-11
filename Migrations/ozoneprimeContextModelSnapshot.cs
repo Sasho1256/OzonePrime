@@ -164,11 +164,17 @@ namespace OzonePrime.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)")
                         .HasColumnName("name");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -181,6 +187,18 @@ namespace OzonePrime.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("id");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -196,17 +214,41 @@ namespace OzonePrime.Migrations
                         .HasColumnType("varchar(40)")
                         .HasColumnName("last_name");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("text");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("varchar(40)")
                         .HasColumnName("password");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)")
-                        .HasColumnName("username");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

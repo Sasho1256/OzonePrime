@@ -1,4 +1,6 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace OzonePrime.Models
 {
-    public partial class ozoneprimeContext : DbContext
+    public partial class ozoneprimeContext : IdentityDbContext<User, Role, int>
     {
         public ozoneprimeContext()
         {
@@ -37,7 +39,13 @@ namespace OzonePrime.Models
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {            
+            modelBuilder.Ignore<IdentityUserClaim<int>>();
+            modelBuilder.Ignore<IdentityUserRole<int>>();
+            modelBuilder.Ignore<IdentityUserLogin<int>>();
+            modelBuilder.Ignore< IdentityRoleClaim<int>>();
+            modelBuilder.Ignore<IdentityUserToken<int>>();
+            
             modelBuilder.Entity<Cast>(entity =>
             {
                 entity.ToTable("cast");
@@ -214,10 +222,10 @@ namespace OzonePrime.Models
                     .HasMaxLength(40)
                     .HasColumnName("password");
 
-                entity.Property(e => e.Username)
-                    .IsRequired()
-                    .HasMaxLength(40)
-                    .HasColumnName("username");
+                //entity.Property(e => e.Username)
+                //    .IsRequired()
+                //    .HasMaxLength(40)
+                //    .HasColumnName("username");
             });
 
             modelBuilder.Entity<UsersRole>(entity =>

@@ -47,13 +47,13 @@ namespace OzonePrime.Services
                 {
                     throw new AccessViolationException("You are logged in, please logout and try again!");
                 }
-                if (dbUser.Username == user.Username)
+                if (dbUser.UserName == user.UserName)
                 {
                     throw new DuplicateNameException("A user with that username already exists!");
                 }
             }
 
-            if (string.IsNullOrWhiteSpace(user.Username) || string.IsNullOrEmpty(user.Username))
+            if (string.IsNullOrWhiteSpace(user.UserName) || string.IsNullOrEmpty(user.UserName))
             {
                 throw new ArgumentException("Invalid input for username.");
             }
@@ -73,7 +73,7 @@ namespace OzonePrime.Services
 
         public void LogIn(User loggingUser)
         {
-            if (!database.Users.Any(x => x.Username == loggingUser.Username))
+            if (!database.Users.Any(x => x.UserName == loggingUser.UserName))
             {
                 throw new MissingMemberException("Such profile doesn't exist.");
             }
@@ -84,12 +84,12 @@ namespace OzonePrime.Services
 
             foreach (var dbUser in database.Users)
             {
-                if (loggingUser.Username == dbUser.Username && loggingUser.Password != dbUser.Password)
+                if (loggingUser.UserName == dbUser.UserName && loggingUser.Password != dbUser.Password)
                 {
                     throw new InvalidOperationException("Wrong password.");
                 }
                 
-                if (loggingUser.Username == dbUser.Username && loggingUser.Password == dbUser.Password)
+                if (loggingUser.UserName == dbUser.UserName && loggingUser.Password == dbUser.Password)
                 {
                     dbUser.IsLoggedIn = true;
                     database.Users.Update(dbUser);
@@ -115,7 +115,7 @@ namespace OzonePrime.Services
         {
             foreach (var dbUser in database.Users)
             {                
-                if (dbUser.Username == updatedUser.Username)
+                if (dbUser.UserName == updatedUser.UserName)
                 {
                     throw new DuplicateNameException("A user with that username already exists!");
                 }                
@@ -123,9 +123,9 @@ namespace OzonePrime.Services
 
             User user = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
 
-            if (!string.IsNullOrWhiteSpace(updatedUser.Username) || !string.IsNullOrEmpty(updatedUser.Username))
+            if (!string.IsNullOrWhiteSpace(updatedUser.UserName) || !string.IsNullOrEmpty(updatedUser.UserName))
             {
-                user.Username = updatedUser.Username;
+                user.UserName = updatedUser.UserName;
             }
             if (!string.IsNullOrWhiteSpace(updatedUser.Password) || !string.IsNullOrEmpty(updatedUser.Password))
             {
