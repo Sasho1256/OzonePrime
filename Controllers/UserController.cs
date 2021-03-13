@@ -27,9 +27,7 @@ namespace OzonePrime.Controllers
             }
             catch (AccessViolationException ex)
             {
-                //return RedirectToAction("LogIn", "User");
-                TempData["ExHand"] = ex.Message;
-                return RedirectToAction("ExceptionHandling");
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
             }
 
             return View(user);
@@ -49,20 +47,15 @@ namespace OzonePrime.Controllers
             }
             catch (AccessViolationException ex)
             {
-                //return RedirectToAction("UserProfile", "User");
-                TempData["ExHand"] = ex.Message;
-                return RedirectToAction("ExceptionHandling");
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
             }
             catch (DuplicateNameException ex)
             {
-                //return RedirectToAction("Register", "User");
-                TempData["ExHand"] = ex.Message;
-                return RedirectToAction("ExceptionHandling");
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
             }
             catch (ArgumentException ex)
             {
-                TempData["ExHand"] = ex.Message;
-                return RedirectToAction("ExceptionHandling");
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
             }
             return RedirectToAction("Index", "Home");
         }
@@ -81,21 +74,15 @@ namespace OzonePrime.Controllers
             }
             catch (MissingMemberException ex)
             {
-                //return RedirectToAction("LogIn", "User");
-                TempData["ExHand"] = ex.Message;
-                return RedirectToAction("ExceptionHandling");
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
             }
             catch (AccessViolationException ex)
             {
-                //return RedirectToAction("UserProfile", "User");
-                TempData["ExHand"] = ex.Message;
-                return RedirectToAction("ExceptionHandling");
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
             }
             catch (InvalidOperationException ex)
             {
-                //return RedirectToAction("LogIn", "User");
-                TempData["ExHand"] = ex.Message;
-                return RedirectToAction("ExceptionHandling");
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
             }
             return RedirectToAction("Index", "Home");
         }
@@ -119,10 +106,8 @@ namespace OzonePrime.Controllers
                 this.userService.EditProfile(user);
             }            
             catch (DuplicateNameException ex)
-            {
-                //return RedirectToAction("Register", "User");
-                TempData["ExHand"] = ex.Message;
-                return RedirectToAction("ExceptionHandling");
+            {                
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
             }
             return RedirectToAction("UserProfile");
         }
@@ -131,14 +116,7 @@ namespace OzonePrime.Controllers
         {
             userService.DeleteUser();
             return RedirectToAction("Index", "Home");
-        }
-
-        public IActionResult ExceptionHandling()
-        {
-            string exMessage = TempData["ExHand"].ToString();
-            ExMessDTO exMess = new ExMessDTO(exMessage);
-            return View(exMess);
-        }
+        }        
 
         public IActionResult AreYouSure()
         {            

@@ -204,12 +204,6 @@ namespace OzonePrime.Migrations
                         .HasColumnType("varchar(40)")
                         .HasColumnName("password");
 
-                    //b.Property<string>("Username")
-                    //    .IsRequired()
-                    //    .HasMaxLength(40)
-                    //    .HasColumnType("varchar(40)")
-                    //    .HasColumnName("username");
-
                     b.HasKey("Id");
 
                     b.ToTable("users");
