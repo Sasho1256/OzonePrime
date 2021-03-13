@@ -20,6 +20,10 @@ namespace OzonePrime.Services
         {
             return database.Films.ToList();
         }
+        public List<Film> FilmInfo()
+        {
+            return database.Films.ToList();
+        }
 
         internal void Create(Film film)
         { 
