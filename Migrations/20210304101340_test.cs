@@ -72,7 +72,11 @@ namespace OzonePrime.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+<<<<<<< HEAD
                     //username = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: false),
+=======
+                    username = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: false),
+>>>>>>> val
                     password = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: false),
                     first_name = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: false),
                     last_name = table.Column<string>(type: "varchar(40)", maxLength: 40, nullable: true)
