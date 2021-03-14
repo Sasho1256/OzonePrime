@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OzonePrime.Models;
 
 namespace OzonePrime.Migrations
 {
     [DbContext(typeof(ozoneprimeContext))]
-    partial class ozoneprimeContextModelSnapshot : ModelSnapshot
+    [Migration("20210314180703_fix maping table PKs")]
+    partial class fixmapingtablePKs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

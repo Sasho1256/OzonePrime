@@ -95,7 +95,7 @@ namespace OzonePrime.Models
 
             modelBuilder.Entity<FilmsCast>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(c => new { c.FilmId, c.CastId });
 
                 entity.ToTable("films_cast");
 
@@ -122,7 +122,7 @@ namespace OzonePrime.Models
 
             modelBuilder.Entity<FilmsGenre>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(c => new { c.FilmId, c.GenreId });
 
                 entity.ToTable("films_genres");
 
@@ -149,7 +149,7 @@ namespace OzonePrime.Models
 
             modelBuilder.Entity<FilmsUser>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(c => new { c.FilmId, c.UserId });
 
                 entity.ToTable("films_users");
 
@@ -226,7 +226,7 @@ namespace OzonePrime.Models
 
             modelBuilder.Entity<UsersRole>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(c => new { c.UserId, c.RoleId });
 
                 entity.ToTable("users_roles");
 

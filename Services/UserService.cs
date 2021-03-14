@@ -36,7 +36,7 @@ namespace OzonePrime.Services
                 throw new AccessViolationException("You must log in first!");
             }
 
-            return database.Users.FirstOrDefault(x => x.IsLoggedIn == true);
+            return database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
         }
 
         public void Register(User user) 
@@ -143,11 +143,53 @@ namespace OzonePrime.Services
             database.SaveChanges();
         }
 
+        //public void AddFilmToMyList(Film film)
+        //{
+        //    User loggedUser = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);();
+        //    FilmsUser filmsUser = new FilmsUser();
+
+        //    filmsUser.User = loggedUser;
+        //    filmsUser.UserId = loggedUser.Id;
+        //    filmsUser.Film = film;
+        //    filmsUser.FilmId = film.Id;
+
+        //    database.FilmsUsers.Add(filmsUser);
+        //    database.SaveChanges();
+        //}
+
+        public List<Film> GetMyList()
+        {
+            List<FilmsUser> filmsUsers = database.FilmsUsers.ToList();
+            User loggedUser = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
+            List<Film> myList = new List<Film>();            
+
+            foreach (var item in filmsUsers)
+            {
+                if (item.UserId == loggedUser.Id)
+                {
+                    Film film = database.Films.Where(f => f.Id == item.FilmId).First();
+                    myList.Add(film);
+                }
+            }
+
+            return myList;
+        }
+
+        public void RemoveFilmFromMyList(string filmId)
+        {
+            User loggedUser = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
+            Film filmToRemove = database.Films.FirstOrDefault(f => f.Id == int.Parse(filmId));
+            FilmsUser filmsUserToRemove = database.FilmsUsers.FirstOrDefault(f => f.FilmId == filmToRemove.Id && f.UserId == loggedUser.Id);
+
+            database.FilmsUsers.Remove(filmsUserToRemove);
+            database.SaveChanges();
+        }
+
         public void DeleteUser()
         {
             User userToRemove = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
             database.Users.Remove(userToRemove);
             database.SaveChanges();
-        }
+        }        
     }
 }
