@@ -21,6 +21,11 @@ namespace OzonePrime.Controllers
             List<Film> films = this.filmService.GetAllFilms();
             return View(films);
         }
+        public IActionResult FilmInfo()
+        {
+            List<Film> films = this.filmService.FilmInfo();
+            return View(films);
+        }
 
         [HttpGet]
         public IActionResult Create()

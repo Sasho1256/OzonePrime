@@ -9,7 +9,7 @@
 
 @for (int i = 0; i < Model.Count; i++)
 {
-    <li>@Model[i].Name - @Model[i].Price lv.</li>
+    <li><a asp-action="FilmInfo">@Model[i].Name - @Model[i].Price lv.</a></li>
 }
 
 </ul>

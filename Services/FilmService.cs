@@ -20,30 +20,15 @@ namespace OzonePrime.Services
         {
             return database.Films.ToList();
         }
+        public List<Film> FilmInfo()
+        {
+            return database.Films.ToList();
+        }
 
         internal void Create(Film film)
         { 
             database.Films.Add(film);
             database.SaveChanges();
         }
-
-        /*
-        public void AddFilm(Film film)
-        {
-            database.Films.Add(film);
-        }
-
-        public void EditFilm(int id, Film film)
-        {
-            Film filmToEdit = database.Films.FirstOrDefault(x => x.Id == id);
-            filmToEdit = film;
-        }
-
-        public void RemoveFilm(int id)
-        {
-            Film filmToRemove = database.Films.FirstOrDefault(x => x.Id == id);
-            database.Films.Remove(filmToRemove);
-        }
-        */
     }
 }
