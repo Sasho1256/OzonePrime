@@ -74,6 +74,8 @@ namespace OzonePrime.Services
                 throw new ArgumentException("Invalid input for first name.");
             }
 
+            user.Password = Base64Encode(user.Password);
+
             database.Users.Add(user);
             database.SaveChanges();
         }
@@ -92,12 +94,12 @@ namespace OzonePrime.Services
 
             foreach (var dbUser in database.Users)
             {
-                if (loggingUser.UserName == dbUser.UserName && loggingUser.Password != dbUser.Password)
+                if (loggingUser.UserName == dbUser.UserName && Base64Encode(loggingUser.Password) != dbUser.Password)
                 {
                     throw new InvalidOperationException("Wrong password.");
                 }
                 
-                if (loggingUser.UserName == dbUser.UserName && loggingUser.Password == dbUser.Password)
+                if (loggingUser.UserName == dbUser.UserName && Base64Encode(loggingUser.Password) == dbUser.Password)
                 {
                     dbUser.IsLoggedIn = true;
                     database.Users.Update(dbUser);
@@ -123,7 +125,7 @@ namespace OzonePrime.Services
         {
             User user = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
             
-            if (confirmPassword.ConfirmPassword != user.Password)
+            if (Base64Encode(confirmPassword.ConfirmPassword) != user.Password)
             {
                 throw new ArgumentException("Wrong confirmation password.");
             }
@@ -142,7 +144,7 @@ namespace OzonePrime.Services
             }
             if (!string.IsNullOrWhiteSpace(updatedUser.Password) || !string.IsNullOrEmpty(updatedUser.Password))
             {
-                user.Password = updatedUser.Password;
+                user.Password = Base64Encode(updatedUser.Password);
             }
             if (!string.IsNullOrWhiteSpace(updatedUser.FirstName) || !string.IsNullOrEmpty(updatedUser.FirstName))
             {
@@ -203,6 +205,17 @@ namespace OzonePrime.Services
             User userToRemove = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
             database.Users.Remove(userToRemove);
             database.SaveChanges();
-        }        
+        }
+
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public static string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
     }
 }
