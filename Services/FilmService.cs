@@ -20,10 +20,10 @@ namespace OzonePrime.Services
         {
             return database.Films.ToList();
         }
-        public List<Film> FilmInfo()
-        {
-            return database.Films.ToList();
-        }
+        //public Film FilmInfo(Film film)
+        //{
+            //return database.Films.FirstOrDefault(f=>f.Id == (film));
+        //}
 
         internal void Create(Film film)
         { 

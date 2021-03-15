@@ -1,15 +1,13 @@
-﻿@model List<Film>
+﻿@model Film
 @{
     ViewData["Title"] = "FilmInfo";
 }
 
 <h1 class="display-4">Film</h1>
 <br>
-@for (int i = 1; i < Model.Count; i++)
-{
-<img src="https://wallpaperaccess.com/full/2240281.jpg" width="500" height="200">
-<p>Name: @Model[i].Name</p>
-<p>Price: @Model[i].Price lv.</p>
-<p>Year of release: @Model[i].YearRelease y.</p>
-<p>Description: @Model[i].Description</p>
-}
+
+<img src="../Pics/@{@Model.Name}.jpg" width="500" height="200">
+<p>Name: @Model.Name</p>
+<p>Price: @Model.Price lv.</p>
+<p>Year of release: @Model.YearRelease y.</p>
+<p>Description: @Model.Description</p>
