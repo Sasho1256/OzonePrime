@@ -39,7 +39,7 @@ namespace OzonePrime.Services
             return database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
         }
 
-        public void Register(User user) 
+        public void Register(User user, ConfirmPasswordDTO confirmPassword) 
         {
             foreach (var dbUser in database.Users)
             {
@@ -60,6 +60,14 @@ namespace OzonePrime.Services
             if (string.IsNullOrWhiteSpace(user.Password) || string.IsNullOrEmpty(user.Password))
             {
                 throw new ArgumentException("Invalid input for password.");
+            }
+            if (string.IsNullOrWhiteSpace(confirmPassword.ConfirmPassword) || string.IsNullOrEmpty(confirmPassword.ConfirmPassword))
+            {
+                throw new ArgumentException("Invalid input for confirmation password.");
+            }
+            if (user.Password != confirmPassword.ConfirmPassword)
+            {
+                throw new ArgumentException("Password and confirmation password don't match.");
             }
             if (string.IsNullOrWhiteSpace(user.FirstName) || string.IsNullOrEmpty(user.FirstName))
             {
@@ -111,8 +119,15 @@ namespace OzonePrime.Services
         }
 
 
-        public void EditProfile(User updatedUser)
+        public void EditProfile(User updatedUser, ConfirmPasswordDTO confirmPassword)
         {
+            User user = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
+            
+            if (confirmPassword.ConfirmPassword != user.Password)
+            {
+                throw new ArgumentException("Wrong confirmation password.");
+            }
+
             foreach (var dbUser in database.Users)
             {                
                 if (dbUser.UserName == updatedUser.UserName)
@@ -120,8 +135,6 @@ namespace OzonePrime.Services
                     throw new DuplicateNameException("A user with that username already exists!");
                 }                
             }
-
-            User user = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
 
             if (!string.IsNullOrWhiteSpace(updatedUser.UserName) || !string.IsNullOrEmpty(updatedUser.UserName))
             {

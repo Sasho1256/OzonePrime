@@ -39,11 +39,11 @@ namespace OzonePrime.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(User user)
+        public IActionResult Register(User user, ConfirmPasswordDTO confirmPassword1)
         {
             try
             {
-                this.userService.Register(user);
+                this.userService.Register(user, confirmPassword1);
             }
             catch (AccessViolationException ex)
             {
@@ -99,14 +99,18 @@ namespace OzonePrime.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult EditProfile(User user)
+        public IActionResult EditProfile(User user, ConfirmPasswordDTO confirmPassword1)
         {
             try
             {
-                this.userService.EditProfile(user);
-            }            
+                this.userService.EditProfile(user, confirmPassword1);
+            }
             catch (DuplicateNameException ex)
-            {                
+            {
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
+            }
+            catch (ArgumentException ex)
+            {
                 return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
             }
             return RedirectToAction("UserProfile");
