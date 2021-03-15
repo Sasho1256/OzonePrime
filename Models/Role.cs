@@ -7,8 +7,6 @@ using System.Collections.Generic;
 namespace OzonePrime.Models
 {
     public partial class Role : IdentityRole<int>
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
+    {        
     }
 }

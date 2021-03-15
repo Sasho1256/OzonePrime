@@ -9,7 +9,7 @@ namespace OzonePrime.Database
     public class InMemoryDatabase
     {
         public User LoggedUser { get; private set; }
-        public List<Cast> Cast { get; private set; }
+        public List<Director> Cast { get; private set; }
         public List<User> Users { get; private set; }
         public List<Genre> Genres { get; private set; }
         public List<Film> Films { get; private set; }

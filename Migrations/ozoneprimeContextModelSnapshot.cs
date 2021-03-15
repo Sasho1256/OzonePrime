@@ -17,7 +17,7 @@ namespace OzonePrime.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.3");
 
-            modelBuilder.Entity("OzonePrime.Models.Cast", b =>
+            modelBuilder.Entity("OzonePrime.Models.Director", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,15 +36,9 @@ namespace OzonePrime.Migrations
                         .HasColumnType("varchar(30)")
                         .HasColumnName("last_name");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("varchar(60)")
-                        .HasColumnName("type");
-
                     b.HasKey("Id");
 
-                    b.ToTable("cast");
+                    b.ToTable("directors");
                 });
 
             modelBuilder.Entity("OzonePrime.Models.Film", b =>
@@ -58,10 +52,18 @@ namespace OzonePrime.Migrations
                         .HasColumnType("text")
                         .HasColumnName("description");
 
+                    b.Property<int>("DirectorId")
+                        .HasColumnType("int")
+                        .HasColumnName("director_id");
+
                     b.Property<int>("ExpirationDays")
                         .HasColumnType("int")
                         .HasColumnName("expiration_days")
                         .HasDefaultValueSql("'15'");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int")
+                        .HasColumnName("genre_id");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -79,46 +81,11 @@ namespace OzonePrime.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DirectorId");
+
+                    b.HasIndex("GenreId");
+
                     b.ToTable("films");
-                });
-
-            modelBuilder.Entity("OzonePrime.Models.FilmsCast", b =>
-                {
-                    b.Property<int>("FilmId")
-                        .HasColumnType("int")
-                        .HasColumnName("film_id");
-
-                    b.Property<int>("CastId")
-                        .HasColumnType("int")
-                        .HasColumnName("cast_id");
-
-                    b.HasKey("FilmId", "CastId");
-
-                    b.HasIndex(new[] { "CastId" }, "cast_id");
-
-                    b.HasIndex(new[] { "FilmId" }, "film_id");
-
-                    b.ToTable("films_cast");
-                });
-
-            modelBuilder.Entity("OzonePrime.Models.FilmsGenre", b =>
-                {
-                    b.Property<int>("FilmId")
-                        .HasColumnType("int")
-                        .HasColumnName("film_id");
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int")
-                        .HasColumnName("genre_id");
-
-                    b.HasKey("FilmId", "GenreId");
-
-                    b.HasIndex(new[] { "FilmId" }, "film_id")
-                        .HasDatabaseName("film_id1");
-
-                    b.HasIndex(new[] { "GenreId" }, "genre_id");
-
-                    b.ToTable("films_genres");
                 });
 
             modelBuilder.Entity("OzonePrime.Models.FilmsUser", b =>
@@ -133,8 +100,7 @@ namespace OzonePrime.Migrations
 
                     b.HasKey("FilmId", "UserId");
 
-                    b.HasIndex(new[] { "FilmId" }, "film_id")
-                        .HasDatabaseName("film_id2");
+                    b.HasIndex(new[] { "FilmId" }, "film_id");
 
                     b.HasIndex(new[] { "UserId" }, "user_id");
 
@@ -154,12 +120,6 @@ namespace OzonePrime.Migrations
                         .HasColumnType("varchar(30)")
                         .HasColumnName("name");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("varchar(60)")
-                        .HasColumnName("type");
-
                     b.HasKey("Id");
 
                     b.ToTable("genres");
@@ -169,32 +129,27 @@ namespace OzonePrime.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)")
-                        .HasColumnName("name");
+                        .HasColumnType("text");
 
                     b.Property<string>("NormalizedName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("roles");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("OzonePrime.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnType("int");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -209,18 +164,13 @@ namespace OzonePrime.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)")
-                        .HasColumnName("first_name");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsLoggedIn")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("LastName")
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)")
-                        .HasColumnName("last_name");
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
@@ -235,10 +185,7 @@ namespace OzonePrime.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)")
-                        .HasColumnName("password");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -260,7 +207,7 @@ namespace OzonePrime.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("OzonePrime.Models.UsersRole", b =>
@@ -283,40 +230,21 @@ namespace OzonePrime.Migrations
                     b.ToTable("users_roles");
                 });
 
-            modelBuilder.Entity("OzonePrime.Models.FilmsCast", b =>
+            modelBuilder.Entity("OzonePrime.Models.Film", b =>
                 {
-                    b.HasOne("OzonePrime.Models.Cast", "Cast")
-                        .WithMany()
-                        .HasForeignKey("CastId")
-                        .HasConstraintName("films_cast_ibfk_2")
-                        .IsRequired();
-
-                    b.HasOne("OzonePrime.Models.Film", "Film")
-                        .WithMany()
-                        .HasForeignKey("FilmId")
-                        .HasConstraintName("films_cast_ibfk_1")
-                        .IsRequired();
-
-                    b.Navigation("Cast");
-
-                    b.Navigation("Film");
-                });
-
-            modelBuilder.Entity("OzonePrime.Models.FilmsGenre", b =>
-                {
-                    b.HasOne("OzonePrime.Models.Film", "Film")
-                        .WithMany()
-                        .HasForeignKey("FilmId")
-                        .HasConstraintName("films_genres_ibfk_1")
+                    b.HasOne("OzonePrime.Models.Director", "Director")
+                        .WithMany("Films")
+                        .HasForeignKey("DirectorId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("OzonePrime.Models.Genre", "Genre")
-                        .WithMany()
+                        .WithMany("Films")
                         .HasForeignKey("GenreId")
-                        .HasConstraintName("films_genres_ibfk_2")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Film");
+                    b.Navigation("Director");
 
                     b.Navigation("Genre");
                 });
@@ -357,6 +285,16 @@ namespace OzonePrime.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OzonePrime.Models.Director", b =>
+                {
+                    b.Navigation("Films");
+                });
+
+            modelBuilder.Entity("OzonePrime.Models.Genre", b =>
+                {
+                    b.Navigation("Films");
                 });
 #pragma warning restore 612, 618
         }

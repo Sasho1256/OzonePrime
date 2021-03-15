@@ -9,6 +9,7 @@ namespace OzonePrime.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Type { get; set; }
+
+        public List<Film> Films { get; set; }
     }
 }

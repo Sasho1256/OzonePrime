@@ -19,23 +19,19 @@ namespace OzonePrime.Models
         {
         }
 
-        public virtual DbSet<Cast> Casts { get; set; }
+        public virtual DbSet<Director> Directors { get; set; }
         public virtual DbSet<Film> Films { get; set; }
-        public virtual DbSet<FilmsCast> FilmsCasts { get; set; }
-        public virtual DbSet<FilmsGenre> FilmsGenres { get; set; }
         public virtual DbSet<FilmsUser> FilmsUsers { get; set; }
+        public virtual DbSet<UsersRole> UsersRole { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UsersRole> UsersRoles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySQL("Server=localhost;Database=ozoneprime;Uid=Val;Pwd=QkaParola123");
-                //optionsBuilder.UseMySQL("Server=localhost;Database=ozoneprime;Uid=Sasho1256;Pwd=7l#GhM)XXd<rAm(4");
+                //optionsBuilder.UseMySQL("Server=localhost;Database=ozoneprime;Uid=Val;Pwd=QkaParola123");
+                optionsBuilder.UseMySQL("Server=localhost;Database=ozoneprime;Uid=Sasho1256;Pwd=7l#GhM)XXd<rAm(4");
             }
         }
 
@@ -47,9 +43,9 @@ namespace OzonePrime.Models
             modelBuilder.Ignore< IdentityRoleClaim<int>>();
             modelBuilder.Ignore<IdentityUserToken<int>>();
             
-            modelBuilder.Entity<Cast>(entity =>
+            modelBuilder.Entity<Director>(entity =>
             {
-                entity.ToTable("cast");
+                entity.ToTable("directors");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -61,12 +57,7 @@ namespace OzonePrime.Models
                 entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(30)
-                    .HasColumnName("last_name");
-
-                entity.Property(e => e.Type)
-                    .IsRequired()
-                    .HasMaxLength(60)
-                    .HasColumnName("type");
+                    .HasColumnName("last_name");                
             });
 
             modelBuilder.Entity<Film>(entity =>
@@ -91,60 +82,6 @@ namespace OzonePrime.Models
                     .HasColumnName("price");
 
                 entity.Property(e => e.YearRelease).HasColumnName("year_release");
-            });
-
-            modelBuilder.Entity<FilmsCast>(entity =>
-            {
-                entity.HasKey(c => new { c.FilmId, c.CastId });
-
-                entity.ToTable("films_cast");
-
-                entity.HasIndex(e => e.CastId, "cast_id");
-
-                entity.HasIndex(e => e.FilmId, "film_id");
-
-                entity.Property(e => e.CastId).HasColumnName("cast_id");
-
-                entity.Property(e => e.FilmId).HasColumnName("film_id");
-
-                entity.HasOne(d => d.Cast)
-                    .WithMany()
-                    .HasForeignKey(d => d.CastId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("films_cast_ibfk_2");
-
-                entity.HasOne(d => d.Film)
-                    .WithMany()
-                    .HasForeignKey(d => d.FilmId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("films_cast_ibfk_1");
-            });
-
-            modelBuilder.Entity<FilmsGenre>(entity =>
-            {
-                entity.HasKey(c => new { c.FilmId, c.GenreId });
-
-                entity.ToTable("films_genres");
-
-                entity.HasIndex(e => e.FilmId, "film_id");
-
-                entity.HasIndex(e => e.GenreId, "genre_id");
-
-                entity.Property(e => e.FilmId).HasColumnName("film_id");
-
-                entity.Property(e => e.GenreId).HasColumnName("genre_id");
-
-                entity.HasOne(d => d.Film)
-                    .WithMany()
-                    .HasForeignKey(d => d.FilmId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("films_genres_ibfk_1");
-
-                entity.HasOne(d => d.Genre)
-                    .WithMany()
-                    .HasForeignKey(d => d.GenreId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("films_genres_ibfk_2");
             });
 
             modelBuilder.Entity<FilmsUser>(entity =>
@@ -183,45 +120,7 @@ namespace OzonePrime.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(30)
-                    .HasColumnName("name");
-
-                entity.Property(e => e.Type)
-                    .IsRequired()
-                    .HasMaxLength(60)
-                    .HasColumnName("type");
-            });
-
-            modelBuilder.Entity<Role>(entity =>
-            {
-                entity.ToTable("roles");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(30)
-                    .HasColumnName("name");
-            });
-
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.ToTable("users");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(40)
-                    .HasColumnName("first_name");
-
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(40)
-                    .HasColumnName("last_name");
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(40)
-                    .HasColumnName("password");                
+                    .HasColumnName("name");                
             });
 
             modelBuilder.Entity<UsersRole>(entity =>

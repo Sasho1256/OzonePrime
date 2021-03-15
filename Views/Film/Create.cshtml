@@ -1,26 +1,47 @@
-﻿
-@{ 
-    ViewData["Title"] = "Create";
+﻿@model DirectorsGenresDTO
+@{
+	ViewData["Title"] = "Create";
 }
 
 <div class="text-center">
 	<h1 class="display-4">Create</h1>
 
-    <form asp-controller="Film" asp-action="Create" method="post">
-        <label>Name</label> <br>
-        <input name="name" /> <br>
+	<form asp-controller="Film" asp-action="Create" method="post">
+		<label>Name</label> <br>
+		<input name="name" /> <br>
 
-        <label>Price</label> <br>
-        <input type="number" name="price" /> <br>
+		<label>Price</label> <br>
+		<input type="number" name="price" /> <br>
 
-        <label>Description</label> <br>
-        <input name="description" /> <br>
+		<label>Description</label> <br>
+		<input name="description" /> <br>
 
-        <label>Year of release</label> <br>
-        <input type="number" name="yearrelease" /> <br>
+		<label>Year of release</label> <br>
+		<input type="number" name="yearrelease" /> <br>
 
-        <br>
+		<label>Director</label><br>
+		<select name="directorid">
+			@{				
+				foreach (var item in Model.Directors)
+				{
+					<option>@item.Id</option>
+				}
+			}
+		</select>
+		<br>
+		<label>Genre</label><br>
+		<select name="genreid">
+			@{				
+				foreach (var item in Model.Genres)
+				{
+					<option>@item.Id</option>
+				}
+			}
 
-        <button>Create</button>
-    </form>
+		</select>
+
+		<br><br>
+
+		<button>Create</button>
+	</form>
 </div>

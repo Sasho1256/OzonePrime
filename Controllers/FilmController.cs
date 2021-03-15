@@ -11,10 +11,14 @@ namespace OzonePrime.Controllers
     public class FilmController : Controller
     {
         private FilmService filmService;
+        private GenreService genreService;
+        DirectorService directorService;
 
-        public FilmController(FilmService filmService)
+        public FilmController(FilmService filmService, GenreService genreService, DirectorService directorService)
         {
             this.filmService = filmService;
+            this.genreService = genreService;
+            this.directorService = directorService;
         }
         public IActionResult GetAllFilms()
         {
@@ -29,7 +33,11 @@ namespace OzonePrime.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            DirectorsGenresDTO dg = new DirectorsGenresDTO(this.directorService.GetAll(), this.genreService.GetAll());
+
+            //ViewData.Add("Directors", this.directorService.GetAll());
+            //ViewData.Add("Genres", this.genreService.GetAll());          
+            return View(dg);
         }
         [HttpPost]
         public IActionResult Create(Film film)

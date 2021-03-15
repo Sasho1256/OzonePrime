@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace OzonePrime.Models
 {
-    public partial class Cast
+    public partial class Director
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Type { get; set; }
+        public List<Film> Films { get; set; }
     }
 }

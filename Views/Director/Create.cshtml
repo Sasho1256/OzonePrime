@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Create</h1>
+
+	<form asp-controller="Director" asp-action="Create" method="post">
+		<label>First name</label> <br>
+		<input name="firstname" required> <br>
+		<label>First name</label> <br>
+		<input name="lastname" required> <br>
+		<br>
+
+		<button>Create</button>
+	</form>
+</div>
