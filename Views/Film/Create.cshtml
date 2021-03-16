@@ -8,23 +8,23 @@
 
 	<form asp-controller="Film" asp-action="Create" method="post">
 		<label>Name</label> <br>
-		<input name="name" /> <br>
+		<input name="name" required> <br>
 
 		<label>Price</label> <br>
-		<input type="number" name="price" /> <br>
+		<input type="number" name="price" required> <br>
 
 		<label>Description</label> <br>
-		<input name="description" /> <br>
+		<input name="description" required> <br>
 
 		<label>Year of release</label> <br>
-		<input type="number" name="yearrelease" /> <br>
+		<input type="number" name="yearrelease" required> <br>
 
 		<label>Director</label><br>
 		<select name="directorid">
 			@{				
 				foreach (var item in Model.Directors)
 				{
-					<option>@item.Id</option>
+					<option value="@item.Id">@item.FirstName @item.LastName</option>
 				}
 			}
 		</select>
@@ -34,7 +34,7 @@
 			@{				
 				foreach (var item in Model.Genres)
 				{
-					<option>@item.Id</option>
+					<option value="@item.Id">@item.Name</option>
 				}
 			}
 

@@ -12,29 +12,48 @@ namespace OzonePrime.Controllers
     {
         private FilmService filmService;
         private GenreService genreService;
-        DirectorService directorService;
+        private DirectorService directorService;
+        private UserService userService;
 
-        public FilmController(FilmService filmService, GenreService genreService, DirectorService directorService)
+        public FilmController(FilmService filmService, GenreService genreService, DirectorService directorService, UserService userService)
         {
             this.filmService = filmService;
             this.genreService = genreService;
             this.directorService = directorService;
+            this.userService = userService;
         }
+        
         public IActionResult GetAllFilms()
         {
             List<Film> films = this.filmService.GetAllFilms();
             return View(films);
         }
+        
         public IActionResult FilmInfo(Film film)
         {
+            film = filmService.FilmInfo(film);
+            return View(film);
+        }
+
+        public IActionResult FilmInfoInMyList(Film film)
+        {
+            film = filmService.FilmInfoInMyList(film);
             return View(film);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            DirectorsGenresDTO dg = new DirectorsGenresDTO(this.directorService.GetAll(), this.genreService.GetAll());
+            try
+            {
+                userService.CheckIfThereIsALoggedUser();
+            }
+            catch (AccessViolationException ex)
+            {
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
+            }
 
+            DirectorsGenresDTO dg = new DirectorsGenresDTO(this.directorService.GetAll(), this.genreService.GetAll());
             //ViewData.Add("Directors", this.directorService.GetAll());
             //ViewData.Add("Genres", this.genreService.GetAll());          
             return View(dg);
@@ -42,8 +61,32 @@ namespace OzonePrime.Controllers
         [HttpPost]
         public IActionResult Create(Film film)
         {
-            this.filmService.Create(film);
+            try
+            {
+                this.filmService.Create(film);
+            }
+            catch (ArgumentException ex)
+            {
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
+            }
+
             return RedirectToAction(nameof(GetAllFilms));
+        }
+
+        [HttpPost]
+        public IActionResult Delete(string filmId)
+        {
+            try
+            {
+                userService.CheckIfThereIsALoggedUser();
+            }
+            catch (AccessViolationException ex)
+            {
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
+            }
+
+            filmService.Delete(filmId);
+            return RedirectToAction("GetAllFilms");
         }
     }
 }

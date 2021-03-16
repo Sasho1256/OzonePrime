@@ -22,19 +22,7 @@ namespace OzonePrime.Services
         
         public User UserProfile()
         {
-            bool aUserIsLogged = false;
-            foreach (var dbUser in database.Users)
-            {
-                if (dbUser.IsLoggedIn == true)
-                {
-                    aUserIsLogged = true;
-                }
-            }
-
-            if (aUserIsLogged == false)
-            {
-                throw new AccessViolationException("You must log in first!");
-            }
+            CheckIfThereIsALoggedUser();
 
             return database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
         }
@@ -158,19 +146,25 @@ namespace OzonePrime.Services
             database.SaveChanges();
         }
 
-        //public void AddFilmToMyList(Film film)
-        //{
-        //    User loggedUser = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);();
-        //    FilmsUser filmsUser = new FilmsUser();
+        public void AddFilmToMyList(string filmId)
+        {
+            CheckIfThereIsALoggedUser();
 
-        //    filmsUser.User = loggedUser;
-        //    filmsUser.UserId = loggedUser.Id;
-        //    filmsUser.Film = film;
-        //    filmsUser.FilmId = film.Id;
+            User loggedUser = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
+            List<FilmsUser> filmsUsers = database.FilmsUsers.ToList();
 
-        //    database.FilmsUsers.Add(filmsUser);
-        //    database.SaveChanges();
-        //}
+            if (!filmsUsers.Exists(fu => fu.FilmId == int.Parse(filmId) && fu.UserId == loggedUser.Id))
+            {
+                FilmsUser filmsUser = new FilmsUser();
+
+                filmsUser.FilmId = int.Parse(filmId);
+                filmsUser.UserId = loggedUser.Id;
+
+                database.FilmsUsers.Add(filmsUser);
+            }
+            
+            database.SaveChanges();
+        }
 
         public List<Film> GetMyList()
         {
@@ -216,6 +210,23 @@ namespace OzonePrime.Services
         {
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+
+        public void CheckIfThereIsALoggedUser()
+        {
+            bool aUserIsLogged = false;
+            foreach (var dbUser in database.Users)
+            {
+                if (dbUser.IsLoggedIn == true)
+                {
+                    aUserIsLogged = true;
+                }
+            }
+
+            if (aUserIsLogged == false)
+            {
+                throw new AccessViolationException("You must log in first!");
+            }
         }
     }
 }

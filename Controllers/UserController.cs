@@ -116,18 +116,20 @@ namespace OzonePrime.Controllers
             return RedirectToAction("UserProfile");
         }
 
-        //[HttpGet]
-        //public IActionResult AddFilmToMyList()
-        //{
-        //    return RedirectToAction("GetAllFilms", "Film");
-        //}
-        //[HttpPost]
-        //public IActionResult AddFilmToMyList(Film film)
-        //{
-        //    userService.AddFilmToMyList(film);
+        [HttpPost]
+        public IActionResult AddFilmToMyList(string filmId)
+        {
+            try
+            {
+                userService.AddFilmToMyList(filmId);
+            }
+            catch (AccessViolationException ex)
+            {
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
+            }
 
-        //    return RedirectToAction("GetAllFilms", "Film");
-        //}
+            return RedirectToAction("GetAllFilms", "Film");
+        }
 
         public IActionResult GetMyList()
         {

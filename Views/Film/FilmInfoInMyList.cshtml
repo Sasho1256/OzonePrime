@@ -1,0 +1,30 @@
+﻿@model Film
+@{
+	ViewData["Title"] = "FilmInfo";
+}
+
+<h1 class="display-4">Film</h1>
+<br>
+	<img src="../Pics/@{@Model.Name}.jpg" width="500" height="200">
+	<p>Name: @Model.Name</p>
+	<p>Price: @Model.Price lv.</p>
+	<p>Year of release: @Model.YearRelease y.</p>
+	<p>Description: @Model.Description</p>
+	<p>Director: @Model.Director.FirstName @Model.Director.LastName</p>
+	<p>Genre: @Model.Genre.Name</p>
+
+<form asp-controller="User" asp-action="RemoveFilmFromMyList" method="post">
+	<button type="submit" style="background-color: indianred; color: white" name="filmId" value="@Model.Id.ToString()">Remove from MyList</button>
+</form>
+
+<br>
+
+<form asp-controller="Film" asp-action="Delete" method="post">
+	<button type="submit" style="background-color: indianred; color: white" name="filmId" value="@Model.Id.ToString()">Delete film</button>
+</form>
+
+<br>
+
+<input type="button" style="background-color: darkgray; color: white" value="Go back" onclick="location.href='@Url.Action("GetMyList", "User")'" />
+
+

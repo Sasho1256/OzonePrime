@@ -12,15 +12,25 @@ namespace OzonePrime.Controllers
     public class GenreController : Controller
     {
         private GenreService genreService;
+        private UserService userService;
 
-        public GenreController(GenreService genreService)
+        public GenreController(GenreService genreService, UserService userService)
         {
             this.genreService = genreService;
+            this.userService = userService;
         }
 
         [HttpGet]
         public ActionResult Create()
         {
+            try
+            {
+                userService.CheckIfThereIsALoggedUser();
+            }
+            catch (AccessViolationException ex)
+            {
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
+            }
             return View();
         }
         [HttpPost]
