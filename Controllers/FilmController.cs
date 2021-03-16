@@ -53,7 +53,7 @@ namespace OzonePrime.Controllers
                 return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
             }
 
-            DirectorsGenresDTO dg = new DirectorsGenresDTO(this.directorService.GetAll(), this.genreService.GetAll());
+            FilmDTO dg = new FilmDTO(this.directorService.GetAll(), this.genreService.GetAll());
             //ViewData.Add("Directors", this.directorService.GetAll());
             //ViewData.Add("Genres", this.genreService.GetAll());          
             return View(dg);
@@ -64,6 +64,38 @@ namespace OzonePrime.Controllers
             try
             {
                 this.filmService.Create(film);
+            }
+            catch (ArgumentException ex)
+            {
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
+            }
+
+            return RedirectToAction(nameof(GetAllFilms));
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string filmId)
+        {
+            try
+            {
+                userService.CheckIfThereIsALoggedUser();
+            }
+            catch (AccessViolationException ex)
+            {
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
+            }
+
+            Film film = this.filmService.GetById(filmId);
+            FilmDTO fdg = new FilmDTO(film, this.directorService.GetAll(), this.genreService.GetAll());
+            
+            return View(fdg);
+        }
+        [HttpPost]
+        public IActionResult Edit(Film film, string filmId)
+        {
+            try
+            {
+                this.filmService.Edit(film, filmId);
             }
             catch (ArgumentException ex)
             {

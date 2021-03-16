@@ -1,23 +1,23 @@
 ﻿@model FilmDTO
 @{
-	ViewData["Title"] = "Create";
+	ViewData["Title"] = "Edit film";
 }
 
 <div class="text-center">
-	<h1 class="display-4">Create</h1>
+	<h1 class="display-4">Edit film</h1>
 
-	<form asp-controller="Film" asp-action="Create" method="post">
+	<form asp-controller="Film" asp-action="Edit" method="post">
 		<label>Name</label> <br>
-		<input name="name" required> <br>
+		<input name="name" value="@Model.film.Name"> <br>
 
 		<label>Price</label> <br>
-		<input type="number" min="0" name="price" required> <br>
+		<input type="number" min="0" name="price" value="@Model.film.Price"> <br>
 
 		<label>Description</label> <br>
-		<input name="description" required> <br>
+		<input name="description" value="@Model.film.Description"> <br>
 
 		<label>Year of release</label> <br>
-		<input type="number" min="1880" name="yearrelease" required> <br>
+		<input type="number" min="1880" name="yearrelease" value="@Model.film.YearRelease"> <br>
 
 		<label>Director</label><br>
 		<select name="directorid">
@@ -39,9 +39,10 @@
 			}
 
 		</select>
+		<input name="filmId" value="@Model.film.Id" hidden>
 
 		<br><br>
 
-		<button>Create</button>
+		<button>Save changes</button>
 	</form>
 </div>

@@ -41,32 +41,54 @@ namespace OzonePrime.Services
             if (string.IsNullOrWhiteSpace(film.Name) || string.IsNullOrEmpty(film.Name))
             {
                 throw new ArgumentException("Invalid input for name.");
-            }
-            if (film.Price < 0)
-            {
-                throw new ArgumentException("Invalid input for price.");
-            }
+            }            
             if (string.IsNullOrWhiteSpace(film.Description) || string.IsNullOrEmpty(film.Description))
             {
                 throw new ArgumentException("Invalid input for description.");
-            }
-            if (film.YearRelease < 1880 || film.YearRelease > DateTime.Now.Year)
-            {
-                throw new ArgumentException("Invalid input for year of release.");
-            }
+            }            
 
             database.Films.Add(film);
             database.SaveChanges();
         }
 
+        internal void Edit(Film updatedFilm, string filmId)
+        {
+            Film film = GetById(filmId);
+
+            if (string.IsNullOrWhiteSpace(updatedFilm.Name) || string.IsNullOrEmpty(updatedFilm.Name))
+            {
+                throw new ArgumentException("Invalid input for name.");
+            }            
+            if (string.IsNullOrWhiteSpace(updatedFilm.Description) || string.IsNullOrEmpty(updatedFilm.Description))
+            {
+                throw new ArgumentException("Invalid input for description.");
+            }
+
+            film.Name = updatedFilm.Name;
+            film.Price = updatedFilm.Price;
+            film.Description = updatedFilm.Description;
+            film.YearRelease = updatedFilm.YearRelease;
+            film.DirectorId = updatedFilm.DirectorId;
+            film.GenreId = updatedFilm.GenreId;
+
+            database.Films.Update(film);
+            database.SaveChanges();
+        }
+
         public void Delete(string filmId)
         {
-            Film filmToDelete = database.Films.FirstOrDefault(f => f.Id == int.Parse(filmId));
+            Film filmToDelete = GetById(filmId);
             List<FilmsUser> filmsUsersToDelete = database.FilmsUsers.Where(fu => fu.FilmId == filmToDelete.Id).ToList();
 
             database.FilmsUsers.RemoveRange(filmsUsersToDelete);
             database.Films.Remove(filmToDelete);
             database.SaveChanges();
+        }
+
+        public Film GetById(string filmId)
+        {
+            Film film = database.Films.FirstOrDefault(f => f.Id == int.Parse(filmId));
+            return film;
         }
     }
 }
