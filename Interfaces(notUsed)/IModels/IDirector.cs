@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 
 namespace OzonePrime.Interfaces.IModels
 {
-    interface ICast
+    interface IDirector
     {
         public int Id { get; set; }
-        public string FistName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Type { get; set; } //it could be either "Actor" or "Director"
-
         public List<IFilm> Films { get; set; }
     }
 }

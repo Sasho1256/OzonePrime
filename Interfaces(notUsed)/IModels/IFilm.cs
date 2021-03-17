@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace OzonePrime.Interfaces.IModels
 {
     interface IFilm
-    {
-        //public image Thumbnail { get; set; }
+    {        
         public int Id { get; set; }
-        public string Title { get; set; }
-        public List<ICast> Cast { get; set; }
-        public List<IGenre> Genres { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
         public string Description { get; set; }
-        public int YearOfRelease { get; set; }
-        private static int RentExpirationDays = 15;
-
+        public int? YearRelease { get; set; }
+        public int ExpirationDays { get; set; }
+        [ForeignKey("Director")]
+        [Column("director_id")]
+        public int DirectorId { get; set; }
+        public IDirector Director { get; set; }
+        [ForeignKey("Genre")]
+        [Column("genre_id")]
+        public int GenreId { get; set; }
+        public IGenre Genre { get; set; }
     }
 }

@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using OzonePrime.Database;
 using OzonePrime.Models;
+using OzonePrime.Services.Contracts;
 
 namespace OzonePrime.Services
 {
-    public class FilmService
+    public class FilmService : IFilmService
     {
         private ozoneprimeContext database;
 
@@ -36,7 +37,7 @@ namespace OzonePrime.Services
             return film;
         }
 
-        internal void Create(Film film)
+        public void Create(Film film)
         {
             if (string.IsNullOrWhiteSpace(film.Name) || string.IsNullOrEmpty(film.Name))
             {
@@ -51,7 +52,7 @@ namespace OzonePrime.Services
             database.SaveChanges();
         }
 
-        internal void Edit(Film updatedFilm, string filmId)
+        public void Edit(Film updatedFilm, string filmId)
         {
             Film film = GetById(filmId);
 

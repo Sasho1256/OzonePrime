@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OzonePrime.Database;
-using OzonePrime.Interfaces.IControllers;
-using OzonePrime.Interfaces.IModels;
-using OzonePrime.Models;
+﻿using OzonePrime.Models;
+using OzonePrime.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace OzonePrime.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private ozoneprimeContext database;
 
@@ -49,6 +45,10 @@ namespace OzonePrime.Services
             {
                 throw new ArgumentException("Invalid input for password.");
             }
+            if (string.IsNullOrWhiteSpace(user.FirstName) || string.IsNullOrEmpty(user.FirstName))
+            {
+                throw new ArgumentException("Invalid input for first name.");
+            }
             if (string.IsNullOrWhiteSpace(confirmPassword.ConfirmPassword) || string.IsNullOrEmpty(confirmPassword.ConfirmPassword))
             {
                 throw new ArgumentException("Invalid input for confirmation password.");
@@ -56,10 +56,6 @@ namespace OzonePrime.Services
             if (user.Password != confirmPassword.ConfirmPassword)
             {
                 throw new ArgumentException("Password and confirmation password don't match.");
-            }
-            if (string.IsNullOrWhiteSpace(user.FirstName) || string.IsNullOrEmpty(user.FirstName))
-            {
-                throw new ArgumentException("Invalid input for first name.");
             }
 
             user.Password = Base64Encode(user.Password);
@@ -201,12 +197,12 @@ namespace OzonePrime.Services
             database.SaveChanges();
         }
 
-        public static string Base64Encode(string plainText)
+        public string Base64Encode(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
-        public static string Base64Decode(string base64EncodedData)
+        public string Base64Decode(string base64EncodedData)
         {
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
@@ -214,16 +210,9 @@ namespace OzonePrime.Services
 
         public void CheckIfThereIsALoggedUser()
         {
-            bool aUserIsLogged = false;
-            foreach (var dbUser in database.Users)
-            {
-                if (dbUser.IsLoggedIn == true)
-                {
-                    aUserIsLogged = true;
-                }
-            }
+            List<User> users = database.Users.ToList();
 
-            if (aUserIsLogged == false)
+            if (!users.Exists(u => u.IsLoggedIn == true))
             {
                 throw new AccessViolationException("You must log in first!");
             }

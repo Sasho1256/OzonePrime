@@ -1,4 +1,5 @@
 ﻿using OzonePrime.Models;
+using OzonePrime.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OzonePrime.Services
 {
-    public class GenreService
+    public class GenreService : IGenreService
     {
         private ozoneprimeContext database;
 
