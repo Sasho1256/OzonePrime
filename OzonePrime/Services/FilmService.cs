@@ -46,7 +46,15 @@ namespace OzonePrime.Services
             if (string.IsNullOrWhiteSpace(film.Description) || string.IsNullOrEmpty(film.Description))
             {
                 throw new ArgumentException("Invalid input for description.");
-            }            
+            }
+            if (film.DirectorId == 0)
+            {
+                throw new ArgumentException("No directors exist. Go add (a) director/s.");
+            }
+            if (film.GenreId == 0)
+            {
+                throw new ArgumentException("No genres exist. Go add (a) genre/s.");
+            }
 
             database.Films.Add(film);
             database.SaveChanges();
