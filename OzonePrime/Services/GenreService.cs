@@ -18,10 +18,14 @@ namespace OzonePrime.Services
 
         public void Create(Genre genre)
         {
+            if (string.IsNullOrEmpty(genre.Name) || string.IsNullOrWhiteSpace(genre.Name))
+            {
+                throw new ArgumentException("Incorrect input for name.");
+            }
             List<Genre> genres = database.Genres.ToList();
             if (!genres.Exists(g => g.Name == genre.Name))
             {
-                database.Add(genre);
+                database.Genres.Add(genre);
             }
             database.SaveChanges();
         }

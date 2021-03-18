@@ -36,7 +36,14 @@ namespace OzonePrime.Controllers
         [HttpPost]
         public ActionResult Create(Genre genre)
         {
-            genreService.Create(genre);
+            try
+            {
+                genreService.Create(genre);
+            }
+            catch (ArgumentException ex)
+            {
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
+            }
             return RedirectToAction("Create");
         }        
     }

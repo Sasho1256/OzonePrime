@@ -18,6 +18,14 @@ namespace OzonePrime.Services
 
         public void Create(Director director)
         {
+            if (string.IsNullOrEmpty(director.FirstName) || string.IsNullOrWhiteSpace(director.FirstName))
+            {
+                throw new ArgumentException("Incorrect input for first name.");
+            }
+            if (string.IsNullOrEmpty(director.LastName) || string.IsNullOrWhiteSpace(director.LastName))
+            {
+                throw new ArgumentException("Incorrect input for last name.");
+            }
             List<Director> directors = database.Directors.ToList();
             if (!directors.Exists(d => d.FirstName == director.FirstName && d.LastName == director.LastName))
             {

@@ -36,7 +36,14 @@ namespace OzonePrime.Controllers
         [HttpPost]
         public ActionResult Create(Director director)
         {
-            directorService.Create(director);
+            try
+            {
+                directorService.Create(director);
+            }
+            catch (ArgumentException ex)
+            {
+                return RedirectToAction("ExceptionHandling", "Exception", new ExMessDTO(ex.Message));
+            }
             return RedirectToAction("Create");
         }
 
