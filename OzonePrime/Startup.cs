@@ -32,8 +32,8 @@ namespace OzonePrime
             services.AddTransient<UserService, UserService>();
             services.AddTransient<GenreService, GenreService>();
             services.AddTransient<DirectorService, DirectorService>();
-            //services.AddDbContext<ozoneprimeContext>(x => x.UseMySQL("Server=localhost;Database=ozoneprime;Uid=Val;Pwd=QkaParola123"));
-            services.AddDbContext<ozoneprimeContext>(x => x.UseMySQL("Server=localhost;Database=ozoneprime;Uid=Sasho1256;Pwd=7l#GhM)XXd<rAm(4"));
+            services.AddDbContext<ozoneprimeContext>(x => x.UseMySQL("Server=localhost;Database=ozoneprime;Uid=Val;Pwd=QkaParola123"));
+            //services.AddDbContext<ozoneprimeContext>(x => x.UseMySQL("Server=localhost;Database=ozoneprime;Uid=Sasho1256;Pwd=7l#GhM)XXd<rAm(4"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
