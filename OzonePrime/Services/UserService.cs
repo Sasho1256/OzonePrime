@@ -116,7 +116,7 @@ namespace OzonePrime.Services
 
             foreach (var dbUser in database.Users)
             {                
-                if (dbUser.UserName == updatedUser.UserName)
+                if (dbUser.UserName == updatedUser.UserName && updatedUser.UserName != user.UserName)
                 {
                     throw new DuplicateNameException("A user with that username already exists!");
                 }                
@@ -193,6 +193,9 @@ namespace OzonePrime.Services
         public void DeleteUser()
         {
             User userToRemove = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
+            List<FilmsUser> filmsUsersToDelete = database.FilmsUsers.Where(fu => fu.UserId == userToRemove.Id).ToList();
+
+            database.FilmsUsers.RemoveRange(filmsUsersToDelete);
             database.Users.Remove(userToRemove);
             database.SaveChanges();
         }
@@ -202,11 +205,11 @@ namespace OzonePrime.Services
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
-        public string Base64Decode(string base64EncodedData)
-        {
-            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-        }
+        //public string Base64Decode(string base64EncodedData)
+        //{
+        //    var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+        //    return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        //}
 
         public void CheckIfThereIsALoggedUser()
         {

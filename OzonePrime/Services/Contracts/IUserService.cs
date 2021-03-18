@@ -18,7 +18,7 @@ namespace OzonePrime.Services.Contracts
         void RemoveFilmFromMyList(string filmId);
         void DeleteUser();
         string Base64Encode(string plainText);
-        string Base64Decode(string base64EncodedData);
+        //string Base64Decode(string base64EncodedData);
         void CheckIfThereIsALoggedUser();
     }
 }
