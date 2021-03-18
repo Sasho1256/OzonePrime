@@ -48,6 +48,5 @@ namespace ozoneprimeTests.ServicesTests.UserServiceTests
 
             Assert.AreEqual(0, users.Count);
         }
-
     }
 }
