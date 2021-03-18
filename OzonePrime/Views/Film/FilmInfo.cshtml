@@ -1,32 +1,51 @@
 ﻿@model Film
 @{
-	ViewData["Title"] = "FilmInfo";
+    ViewData["Title"] = "FilmInfo";
 }
 
 <h1 class="display-4">Film</h1>
 <br>
-<img src="../Pics/@{@Model.Name}.jpg" width="500" height="200">
-<p>Name: @Model.Name</p>
-<p>Price: @Model.Price lv.</p>
-<p>Year of release: @Model.YearRelease y.</p>
-<p>Description: @Model.Description</p>
-<p>Director: @Model.Director.FirstName @Model.Director.LastName</p>
-<p>Genre: @Model.Genre.Name</p>
+<img src="/pics/@{@Model.Name}.jpg" width="300" height="400">
+<style>
+    .text2Position {
+        position: absolute;
+        top: 170px;
+        right: 300px;
+        font-size: 18px;
+    }
+</style>
+<table border="0">
+    <tr>
+        <td class="text2Position" width="580" height="435" bgcolor="#e4e4e4">
+            <ul>
+                <br>
+                <p>Name: @Model.Name </p>
+                <p>Price: @Model.Price lv.</p>
+                <p>Year of release: @Model.YearRelease </p>
+                <p>Description: @Model.Description</p>
+                <p>Director: @Model.Director.FirstName @Model.Director.LastName</p>
+                <p>Genre: @Model.Genre.Name</p>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<br>
 
 <form asp-controller="User" asp-action="AddFilmToMyList" method="post">
-	<button type="submit" style="background-color: limegreen; color: white" name="filmId" value="@Model.Id.ToString()">Add to MyList</button>
+    <button type="submit" style="background-color: limegreen; color: white" name="filmId" value="@Model.Id.ToString()">Add to MyList</button>
 </form>
 
 <br>
 
 <form asp-controller="Film" asp-action="Edit" method="get">
-	<button type="submit" style="background-color: orange; color: white" name="filmId" value="@Model.Id.ToString()">Edit</button>
+    <button type="submit" style="background-color: orange; color: white" name="filmId" value="@Model.Id.ToString()">Edit</button>
 </form>
 
 <br>
 
 <form asp-controller="Film" asp-action="Delete" method="post">
-	<button type="submit" style="background-color: indianred; color: white" name="filmId" value="@Model.Id.ToString()">Delete</button>
+    <button type="submit" style="background-color: indianred; color: white" name="filmId" value="@Model.Id.ToString()">Delete</button>
 </form>
 
 <br>
