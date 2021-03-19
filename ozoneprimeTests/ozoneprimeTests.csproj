@@ -15,13 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ServicesTests\GenreServiceTests\" />
-    <Folder Include="ServicesTests\FilmServiceTests\" />
-    <Folder Include="ServicesTests\DirectorServiceTests\" />
+    <ProjectReference Include="..\OzonePrime\OzonePrime.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OzonePrime\OzonePrime.csproj" />
+    <Folder Include="ServicesTests\FilmServiceTests\" />
   </ItemGroup>
 
 </Project>
