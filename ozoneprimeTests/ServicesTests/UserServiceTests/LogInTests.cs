@@ -81,6 +81,102 @@ namespace ozoneprimeTests.ServicesTests.UserServiceTests
             Assert.AreEqual("You are logged in, please logout and try again!", message);
         }
 
+        //========================================================
+
+        [Test]
+        public void ThrowsExcIfInThePasswordIsNull()
+        {
+            UserService userService = new UserService(this.context);
+
+            User user = new User();
+            user.UserName = "peshkata";
+            user.Password = userService.Base64Encode("peshkata");
+            user.FirstName = "peshkata";
+
+            this.context.Users.Add(user);
+            this.context.SaveChanges();
+
+            User user1 = new User();
+            user1.UserName = "peshkata";
+
+            string message = "";
+
+            try
+            {
+                userService.LogIn(user1);
+            }
+            catch (InvalidOperationException ex)
+            {
+                message = ex.Message;
+            }
+
+            Assert.AreEqual("Wrong password.", message);
+        }
+
+        [Test]
+        public void ThrowsExcIfInThePasswordIsEmpty()
+        {
+            UserService userService = new UserService(this.context);
+
+            User user = new User();
+            user.UserName = "peshkata";
+            user.Password = userService.Base64Encode("peshkata");
+            user.FirstName = "peshkata";
+
+            this.context.Users.Add(user);
+            this.context.SaveChanges();
+
+            User user1 = new User();
+            user1.UserName = "peshkata";
+            user1.Password = "";
+
+            string message = "";
+
+            try
+            {
+                userService.LogIn(user1);
+            }
+            catch (InvalidOperationException ex)
+            {
+                message = ex.Message;
+            }
+
+            Assert.AreEqual("Wrong password.", message);
+        }
+
+        [Test]
+        public void ThrowsExcIfInThePasswordIsWhiteSpace()
+        {
+            UserService userService = new UserService(this.context);
+
+            User user = new User();
+            user.UserName = "peshkata";
+            user.Password = userService.Base64Encode("peshkata");
+            user.FirstName = "          ";
+
+            this.context.Users.Add(user);
+            this.context.SaveChanges();
+
+            User user1 = new User();
+            user1.UserName = "peshkata";
+            user1.Password = "peshkatata";
+
+            string message = "";
+
+            try
+            {
+                userService.LogIn(user1);
+            }
+            catch (InvalidOperationException ex)
+            {
+                message = ex.Message;
+            }
+
+            Assert.AreEqual("Wrong password.", message);
+        }
+
+        //========================================================
+
         [Test]
         public void ThrowsExcIfInThePasswordIsWrong()
         {

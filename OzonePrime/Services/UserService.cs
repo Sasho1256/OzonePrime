@@ -75,6 +75,10 @@ namespace OzonePrime.Services
             {
                 throw new AccessViolationException("You are logged in, please logout and try again!");
             }
+            if (string.IsNullOrEmpty(loggingUser.Password) || string.IsNullOrWhiteSpace(loggingUser.Password))
+            {
+                throw new InvalidOperationException("Wrong password.");
+            }
 
             foreach (var dbUser in database.Users)
             {
@@ -108,7 +112,12 @@ namespace OzonePrime.Services
         public void EditProfile(User updatedUser, ConfirmPasswordDTO confirmPassword)
         {
             User user = database.Users.FirstOrDefault(u => u.IsLoggedIn == true);
-            
+
+            if (string.IsNullOrEmpty(confirmPassword.ConfirmPassword) || string.IsNullOrWhiteSpace(confirmPassword.ConfirmPassword))
+            {
+                throw new ArgumentException("Wrong confirmation password.");
+            }
+
             if (Base64Encode(confirmPassword.ConfirmPassword) != user.Password)
             {
                 throw new ArgumentException("Wrong confirmation password.");

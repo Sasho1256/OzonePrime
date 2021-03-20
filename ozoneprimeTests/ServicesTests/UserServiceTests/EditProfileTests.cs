@@ -28,6 +28,102 @@ namespace ozoneprimeTests.ServicesTests.UserServiceTests
             this.context.Database.EnsureDeleted();
         }
 
+        //==============================================================
+
+        [Test]
+        public void ThrowsExcIfConfirmPasswordIsNull()
+        {
+            UserService userService = new UserService(this.context);
+
+            string mess = "";
+
+            ConfirmPasswordDTO confirmPassword = new ConfirmPasswordDTO();
+
+            User user = new User();
+            user.UserName = "peshkata";
+            user.Password = userService.Base64Encode("peshkata");
+            user.FirstName = "peshkata";
+            user.IsLoggedIn = true;
+
+            this.context.Users.Add(user);
+            this.context.SaveChanges();
+
+            try
+            {
+                userService.EditProfile(user, confirmPassword);
+            }
+            catch (ArgumentException ex)
+            {
+                mess = ex.Message;
+            }
+
+            Assert.AreEqual("Wrong confirmation password.", mess);
+        }
+
+        [Test]
+        public void ThrowsExcIfConfirmPasswordIsEmpty()
+        {
+            UserService userService = new UserService(this.context);
+
+            string mess = "";
+
+            ConfirmPasswordDTO confirmPassword = new ConfirmPasswordDTO();
+            confirmPassword.ConfirmPassword = "";
+
+            User user = new User();
+            user.UserName = "peshkata";
+            user.Password = userService.Base64Encode("peshkata");
+            user.FirstName = "peshkata";
+            user.IsLoggedIn = true;
+
+            this.context.Users.Add(user);
+            this.context.SaveChanges();
+
+            try
+            {
+                userService.EditProfile(user, confirmPassword);
+            }
+            catch (ArgumentException ex)
+            {
+                mess = ex.Message;
+            }
+
+            Assert.AreEqual("Wrong confirmation password.", mess);
+        }
+
+        [Test]
+        public void ThrowsExcIfConfirmPasswordIsWhiteSpace()
+        {
+            UserService userService = new UserService(this.context);
+
+            string mess = "";
+
+            ConfirmPasswordDTO confirmPassword = new ConfirmPasswordDTO();
+            confirmPassword.ConfirmPassword = " ";
+
+            User user = new User();
+            user.UserName = "peshkata";
+            user.Password = userService.Base64Encode("peshkata");
+            user.FirstName = "peshkata";
+            user.IsLoggedIn = true;
+
+            this.context.Users.Add(user);
+            this.context.SaveChanges();
+
+            try
+            {
+                userService.EditProfile(user, confirmPassword);
+            }
+            catch (ArgumentException ex)
+            {
+                mess = ex.Message;
+            }
+
+            Assert.AreEqual("Wrong confirmation password.", mess);
+        }
+
+        //==============================================================
+
         [Test]
         public void ThrowsExcIfConfirmPasswordIsIncorrect()
         {
