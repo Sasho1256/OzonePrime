@@ -196,6 +196,49 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
         //TODO: test director and genre validations
 
         [Test]
+        public void ThrowsExcIfDirectorIsZero()
+        {
+            FilmService filmService = new FilmService(this.context);
+            Film film = new Film();
+            film.Name = "Star Wars";
+            film.Description = "qk film";
+            string mess = "";
+
+            try
+            {
+                filmService.Create(film);
+            }
+            catch (ArgumentException ex)
+            {
+                mess = ex.Message;
+            }
+
+            Assert.AreEqual("No directors exist. Go add (a) director/s.", mess);
+        }
+
+        [Test]
+        public void ThrowsExcIfGenreIsZero()
+        {
+            FilmService filmService = new FilmService(this.context);
+            Film film = new Film();
+            film.Name = "Star Wars";
+            film.Description = "qk film";
+            film.DirectorId = 1;
+            string mess = "";
+
+            try
+            {
+                filmService.Create(film);
+            }
+            catch (ArgumentException ex)
+            {
+                mess = ex.Message;
+            }
+
+            Assert.AreEqual("No genres exist. Go add (a) genre/s.", mess);
+        }
+
+        [Test]
         public void CreateFilmCorrectly()
         {
             FilmService filmService = new FilmService(this.context);
