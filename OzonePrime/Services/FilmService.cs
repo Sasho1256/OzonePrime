@@ -10,9 +10,9 @@ namespace OzonePrime.Services
 {
     public class FilmService : IFilmService
     {
-        private ozoneprimeContext database;
+        private OzoneprimeContext database;
 
-        public FilmService(ozoneprimeContext database)
+        public FilmService(OzoneprimeContext database)
         {
             this.database = database;
         }

@@ -9,9 +9,9 @@ namespace OzonePrime.Services
 {
     public class GenreService : IGenreService
     {
-        private ozoneprimeContext database;
+        private OzoneprimeContext database;
 
-        public GenreService(ozoneprimeContext database)
+        public GenreService(OzoneprimeContext database)
         {
             this.database = database;
         }

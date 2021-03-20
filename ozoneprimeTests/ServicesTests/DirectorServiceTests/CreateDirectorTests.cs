@@ -11,15 +11,15 @@ namespace ozoneprimeTests.ServicesTests.DirectorServiceTests
 {
     class CreateDirectorTests
     {
-        private ozoneprimeContext context;
+        private OzoneprimeContext context;
 
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<ozoneprimeContext>()
+            var options = new DbContextOptionsBuilder<OzoneprimeContext>()
                 .UseInMemoryDatabase("TestDb").Options;
 
-            this.context = new ozoneprimeContext(options);
+            this.context = new OzoneprimeContext(options);
         }
 
         [TearDown]

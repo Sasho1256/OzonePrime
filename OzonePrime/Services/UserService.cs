@@ -9,9 +9,9 @@ namespace OzonePrime.Services
 {
     public class UserService : IUserService
     {
-        private ozoneprimeContext database;
+        private OzoneprimeContext database;
 
-        public UserService(ozoneprimeContext database)
+        public UserService(OzoneprimeContext database)
         {
             this.database = database;
         }
