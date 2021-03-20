@@ -34,6 +34,7 @@ namespace ozoneprimeTests.ServicesTests.DirectorServiceTests
         {
             DirectorService directorService = new DirectorService(this.context);
             Director director = new Director();
+            director.LastName = "Goshev";
             string message = "";
             try
             {
@@ -150,7 +151,6 @@ namespace ozoneprimeTests.ServicesTests.DirectorServiceTests
         }
 
         [Test]
-
         public void CreatesDirectorCorrectly()
         {
             DirectorService directorService = new DirectorService(this.context);

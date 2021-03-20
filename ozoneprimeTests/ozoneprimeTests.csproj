@@ -18,8 +18,4 @@
     <ProjectReference Include="..\OzonePrime\OzonePrime.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ServicesTests\FilmServiceTests\" />
-  </ItemGroup>
-
 </Project>
