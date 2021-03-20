@@ -193,8 +193,6 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
             Assert.AreEqual("Invalid input for description.", mess);
         }
 
-        //TODO: test director and genre validations
-
         [Test]
         public void ThrowsExcIfDirectorIsZero()
         {

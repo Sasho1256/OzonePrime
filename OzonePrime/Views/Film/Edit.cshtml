@@ -8,16 +8,16 @@
 
 	<form asp-controller="Film" asp-action="Edit" method="post">
 		<label>Name</label> <br>
-		<input name="name" value="@Model.film.Name"> <br>
+		<input name="name" value="@Model.film.Name" required> <br>
 
 		<label>Price</label> <br>
-		<input type="number" min="0" name="price" value="@Model.film.Price"> <br>
+		<input type="number" min="0" name="price" value="@Model.film.Price" required> <br>
 
 		<label>Description</label> <br>
-		<input name="description" value="@Model.film.Description"> <br>
+		<input name="description" value="@Model.film.Description" required> <br>
 
 		<label>Year of release</label> <br>
-		<input type="number" min="1880" name="yearrelease" value="@Model.film.YearRelease"> <br>
+		<input type="number" min="1880" name="yearrelease" value="@Model.film.YearRelease" required> <br>
 
 		<label>Director</label><br>
 		<select name="directorid">
