@@ -11,7 +11,7 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
 {
     class FilmCreateTests
     {
-        /*private ozoneprimeContext context;
+        private ozoneprimeContext context;
 
         [SetUp]
         public void Setup()
@@ -40,6 +40,7 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
             film.GenreId = 1;
             film.Description = "qk film";
             string mess = "";
+
             try
             {
                 filmService.Create(film);
@@ -99,9 +100,6 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
             film.GenreId = 1;
             film.Description = "qk film";
 
-            this.context.Films.Add(film);
-            this.context.SaveChanges();
-
             try
             {
                 filmService.Create(film);
@@ -126,6 +124,7 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
             film.DirectorId = 1;
             film.GenreId = 1;
             string mess = "";
+
             try
             {
                 filmService.Create(film);
@@ -135,7 +134,7 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
                 mess = ex.Message;
             }
 
-            Assert.AreEqual("Invalid input for name.", mess);
+            Assert.AreEqual("Invalid input for description.", mess);
         }
 
         [Test]
@@ -153,9 +152,6 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
             film.DirectorId = 1;
             film.GenreId = 1;
             film.Description = "";
-
-            this.context.Films.Add(film);
-            this.context.SaveChanges();
 
             try
             {
@@ -184,10 +180,7 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
             film.DirectorId = 1;
             film.GenreId = 1;
             film.Description = " ";
-
-            this.context.Films.Add(film);
-            this.context.SaveChanges();
-
+                        
             try
             {
                 filmService.Create(film);
@@ -200,21 +193,38 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
             Assert.AreEqual("Invalid input for description.", mess);
         }
 
+        //TODO: test director and genre validations
+
         [Test]
         public void CreateFilmCorrectly()
         {
             FilmService filmService = new FilmService(this.context);
+
+            Director director = new Director();
+            director.Id = 1;
+            director.FirstName = "asdasd";
+            director.LastName = "asdasd";
+
+            Genre genre = new Genre();
+            genre.Id = 1;
+            genre.Name = "asdasd";
+
             Film film = new Film();
+            film.Id = 1;
             film.Name = "Star Wars";
+            film.Price = 15;
+            film.YearRelease = 1999;
+            film.DirectorId = 1;
+            film.GenreId = 1;
             film.Description = "qk film";
+
             filmService.Create(film);
-            this.context.SaveChanges();
 
             List<Film> films = this.context.Films.ToList();
 
             Assert.AreEqual("Star Wars", films[0].Name);
             Assert.AreEqual("qk film", films[0].Description);
 
-        }*/
+        }
     }
 }

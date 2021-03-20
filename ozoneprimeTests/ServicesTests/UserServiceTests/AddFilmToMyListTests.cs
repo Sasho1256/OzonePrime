@@ -27,20 +27,7 @@ namespace ozoneprimeTests.ServicesTests.UserServiceTests
         {
             this.context.Database.EnsureDeleted();
         }
-
-        [Test]
-        public void TestSettingOfFilmsUser()
-        {
-            FilmsUser filmsUser = new FilmsUser();
-
-            filmsUser.FilmId = 1;
-            filmsUser.Film = new Film();
-            filmsUser.UserId = 1;
-            filmsUser.User = new User();
-
-            Assert.AreEqual(1, filmsUser.UserId);
-        }
-
+        
         [Test]
         public void ThrowsExcIfNooneIsLoggedIn()
         {

@@ -11,7 +11,7 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
 {
     class FilmDeleteTests
     {
-        /*private ozoneprimeContext context;
+        private ozoneprimeContext context;
 
         [SetUp]
         public void Setup()
@@ -45,12 +45,12 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
             this.context.Films.Add(film);
             this.context.SaveChanges();
 
-            filmService.Delete(string filmId);
+            filmService.Delete("1");
 
             List<Film> films = this.context.Films.ToList();
 
             Assert.AreEqual(0, films.Count);
 
-        }*/
+        }
     }
 }

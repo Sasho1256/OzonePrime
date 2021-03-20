@@ -11,7 +11,7 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
 {
     class FilmEditTests
     {
-        /*private ozoneprimeContext context;
+        private ozoneprimeContext context;
 
         [SetUp]
         public void Setup()
@@ -32,11 +32,13 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
         public void ThrowsExcIfFilmNameIsNull()
         {
             FilmService filmService = new FilmService(this.context);
-            Film film = new Film();
+            Film updatedFilm = new Film();
+
+
             string mess = "";
             try
             {
-                filmService.Edit(film, mess);
+                filmService.Edit(updatedFilm, "1");
             }
             catch (ArgumentException ex)
             {
@@ -53,21 +55,12 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
 
             string mess = "";
 
-            Film film = new Film();
-            film.Id = 1;
-            film.Name = "";
-            film.Price = 15;
-            film.YearRelease = 1999;
-            film.DirectorId = 1;
-            film.GenreId = 1;
-            film.Description = "qk film";
-
-            this.context.Films.Add(film);
-            this.context.SaveChanges();
-
+            Film updatedFilm = new Film();
+            updatedFilm.Name = "";
+            
             try
             {
-                filmService.Edit(film, mess);
+                filmService.Edit(updatedFilm, "1");
             }
             catch (ArgumentException ex)
             {
@@ -84,21 +77,12 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
 
             string mess = "";
 
-            Film film = new Film();
-            film.Id = 1;
-            film.Name = " ";
-            film.Price = 15;
-            film.YearRelease = 1999;
-            film.DirectorId = 1;
-            film.GenreId = 1;
-            film.Description = "qk film";
-
-            this.context.Films.Add(film);
-            this.context.SaveChanges();
+            Film updatedFilm = new Film();
+            updatedFilm.Name = " ";
 
             try
             {
-                filmService.Edit(film, mess);
+                filmService.Edit(updatedFilm, "1");
             }
             catch (ArgumentException ex)
             {
@@ -112,18 +96,22 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
         public void ThrowsExcIfDescriptionIsNull()
         {
             FilmService filmService = new FilmService(this.context);
-            Film film = new Film();
+
             string mess = "";
+
+            Film updatedFilm = new Film();
+            updatedFilm.Name = "Star Wars";
+
             try
             {
-                filmService.Edit(film, mess);
+                filmService.Edit(updatedFilm, "1");
             }
             catch (ArgumentException ex)
             {
                 mess = ex.Message;
             }
 
-            Assert.AreEqual("Invalid input for name.", mess);
+            Assert.AreEqual("Invalid input for description.", mess);
         }
 
         [Test]
@@ -133,21 +121,13 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
 
             string mess = "";
 
-            Film film = new Film();
-            film.Id = 1;
-            film.Name = "Star Wars";
-            film.Price = 15;
-            film.YearRelease = 1999;
-            film.DirectorId = 1;
-            film.GenreId = 1;
-            film.Description = "";
-
-            this.context.Films.Add(film);
-            this.context.SaveChanges();
+            Film updatedFilm = new Film();
+            updatedFilm.Name = "Star Wars";
+            updatedFilm.Description = "";
 
             try
             {
-                filmService.Edit(film, mess);
+                filmService.Edit(updatedFilm, "1");
             }
             catch (ArgumentException ex)
             {
@@ -164,21 +144,13 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
 
             string mess = "";
 
-            Film film = new Film();
-            film.Id = 1;
-            film.Name = "Star Wars";
-            film.Price = 15;
-            film.YearRelease = 1999;
-            film.DirectorId = 1;
-            film.GenreId = 1;
-            film.Description = " ";
-
-            this.context.Films.Add(film);
-            this.context.SaveChanges();
+            Film updatedFilm = new Film();
+            updatedFilm.Name = "Star Wars";
+            updatedFilm.Description = " ";
 
             try
             {
-                filmService.Edit(film, mess);
+                filmService.Edit(updatedFilm, "1");
             }
             catch (ArgumentException ex)
             {
@@ -192,16 +164,43 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
         public void EditFilmCorrectly()
         {
             FilmService filmService = new FilmService(this.context);
+
+            Director director = new Director();
+            director.Id = 1;
+            director.FirstName = "asdasd";
+            director.LastName = "asdasd";
+
+            Genre genre = new Genre();
+            genre.Id = 1;
+            genre.Name = "asdasd";
+
             Film film = new Film();
-            film.Name = "Gosho";
+            film.Id = 1;
+            film.Name = "Star Wars";
+            film.Price = 15;
+            film.YearRelease = 1999;
+            film.DirectorId = 1;
+            film.GenreId = 1;
             film.Description = "qk film";
-            filmService.Edit(updatedFilm, filmId);
+
+            this.context.Add(film);
+            this.context.SaveChanges();
+
+            Film updatedFilm = new Film();
+            updatedFilm.Name = "Star Wars 2";
+            updatedFilm.Price = 15;
+            updatedFilm.YearRelease = 1999;
+            updatedFilm.DirectorId = 1;
+            updatedFilm.GenreId = 1;
+            updatedFilm.Description = "qk film 2";
+
+            filmService.Edit(updatedFilm, "1");
 
             List<Film> films = this.context.Films.ToList();
 
-            Assert.AreEqual("Star Wars", films[0].Name);
-            Assert.AreEqual("qk film", films[0].Description);
+            Assert.AreEqual("Star Wars 2", films[0].Name);
+            Assert.AreEqual("qk film 2", films[0].Description);
 
-        }*/
+        }
     }
 }

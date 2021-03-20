@@ -11,7 +11,7 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
 {
     class FilmInfoInMyListTests
     {
-        /*private ozoneprimeContext context;
+        private ozoneprimeContext context;
 
         [SetUp]
         public void Setup()
@@ -32,6 +32,7 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
         public void FilmInfoMyListTests()
         {
             UserService userService = new UserService(this.context);
+            FilmService filmService = new FilmService(this.context);
 
             User user = new User();
             user.UserName = "Gosho";
@@ -39,7 +40,6 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
             user.FirstName = "Gosho";
             user.IsLoggedIn = true;
 
-            FilmService filmService = new FilmService(this.context);
 
             Director director = new Director();
             director.Id = 1;
@@ -62,14 +62,16 @@ namespace ozoneprimeTests.ServicesTests.FilmServiceTests
             this.context.Films.Add(film);
             this.context.Directors.Add(director);
             this.context.Genres.Add(genre);
+            this.context.Users.Add(user);
             this.context.SaveChanges();
 
             userService.AddFilmToMyList("1");
 
-            List<Film> myList = userService.GetMyList();
+            Film film1 = filmService.FilmInfoInMyList(film);            
 
-            Assert.AreEqual("Star Wars", myList[0].Name);
+            Assert.AreEqual("George", film1.Director.FirstName);
+            Assert.AreEqual("sci-fi", film1.Genre.Name);
 
-        }*/
+        }
     }
 }
