@@ -21,20 +21,28 @@
 
 		<label>Director</label><br>
 		<select name="directorid">
-			@{				
-				foreach (var item in Model.Directors)
+			@{			
+				<option value="@Model.film.DirectorId">@Model.film.Director.FirstName @Model.film.Director.LastName</option>
+				foreach (var director in Model.Directors)
 				{
-					<option value="@item.Id">@item.FirstName @item.LastName</option>
+					if (director.Id != Model.film.DirectorId)
+					{
+						<option value="@director.Id">@director.FirstName @director.LastName</option>
+					}
 				}
 			}
 		</select>
 		<br>
 		<label>Genre</label><br>
 		<select name="genreid">
-			@{				
-				foreach (var item in Model.Genres)
+			@{		
+				<option value="@Model.film.GenreId">@Model.film.Genre.Name</option>
+				foreach (var genre in Model.Genres)
 				{
-					<option value="@item.Id">@item.Name</option>
+					if (genre.Id != Model.film.GenreId)
+					{
+						<option value="@genre.Id">@genre.Name</option>
+					}
 				}
 			}
 
