@@ -9,9 +9,9 @@ namespace OzonePrime.Services
 {
     public class DirectorService : IDirectorService
     {
-        private ozoneprimeContext database;
+        private OzoneprimeContext database;
 
-        public DirectorService(ozoneprimeContext database)
+        public DirectorService(OzoneprimeContext database)
         {
             this.database = database;
         }

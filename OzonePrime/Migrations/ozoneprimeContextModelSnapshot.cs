@@ -7,7 +7,7 @@ using OzonePrime.Models;
 
 namespace OzonePrime.Migrations
 {
-    [DbContext(typeof(ozoneprimeContext))]
+    [DbContext(typeof(OzoneprimeContext))]
     partial class ozoneprimeContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

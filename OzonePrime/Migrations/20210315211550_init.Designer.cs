@@ -8,7 +8,7 @@ using OzonePrime.Models;
 
 namespace OzonePrime.Migrations
 {
-    [DbContext(typeof(ozoneprimeContext))]
+    [DbContext(typeof(OzoneprimeContext))]
     [Migration("20210315211550_init")]
     partial class init
     {
